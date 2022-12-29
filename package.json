@@ -4,8 +4,8 @@
   "description": "education project web",
   "scripts": {
     "dev": "parcel src/index.html --no-cache",
-    "build": "parcel build src/pages/index.hbs",
-    "start": "parcel build src/pages/index.hbs && node ./app.js"
+    "build": "parcel build src/index.html",
+    "start": "parcel build src/index.html && node ./app.js"
   },
   "keywords": [],
   "author": "",
