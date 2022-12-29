@@ -61,6 +61,10 @@ export default class Block<P = any> {
     this._element = this._createDocumentElement("div");
   }
 
+  getProps(): P {
+    return this.props;
+  }
+
   init() {
     this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
@@ -177,11 +181,12 @@ export default class Block<P = any> {
     }
 
     Object.entries(events).forEach(([event, listener]) => {
-      if (this._element) this._element.addEventListener(event, listener);
+      if (this._element) this._element.addEventListener(event, listener, true);
     });
   }
 
   _compile(): DocumentFragment {
+    this.children = {};
     const fragment = document.createElement("template");
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
@@ -190,7 +195,7 @@ export default class Block<P = any> {
       children: this.children,
       refs: this.refs,
     });
-    console.log(this.children);
+
     Object.entries(this.children).forEach(([id, component]) => {
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 

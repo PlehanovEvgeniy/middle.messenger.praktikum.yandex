@@ -1,30 +1,61 @@
 import "./input.less";
 import { Block } from "../../modules";
+import { formValidation } from "../../helpers/validation";
 
 interface InputProps {
-  name?: string;
+  name: string;
   label?: string;
   type?: "text" | "email" | "password" | "tel" | "file";
   placeholder?: string;
-  validation: string;
+  validation?: string;
+  className?: string;
+  fullWidth?: boolean;
 }
 
 export class Input extends Block {
-  constructor({ ...props }: InputProps) {
-    super({ ...props });
+  static componentName = "Input";
+  private value: string | undefined = "";
+
+  constructor(props: InputProps) {
+    super({
+      ...props,
+      className: props.className ? props.className : "form__input",
+      events: {
+        change: (e: Event) => {
+          this.value = (e.target as HTMLInputElement).value;
+          this.setProps({
+            value: this.value,
+          });
+        },
+        focus: () => {
+          this.errors = "";
+        },
+        blur: () => {
+          if (props.validation) {
+            this.errors = formValidation[props.validation](this.value);
+            this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+          }
+        },
+      },
+    });
   }
 
   protected render(): string {
+    console.log(this.getProps());
     return `
-      <div class="form">
+      <div class="form {{#if fullWidth}} fullWidth {{/if}}">
         <label class="form__label" for={{name}}>{{label}}</label>
         <input
-          class="form__input"
+          class="{{className}}"
           type={{type}}
           placeholder={{placeholder}}
           name={{name}}
-          validation={{validation}}
+          value="{{value}}"
         />
+
+        <div class="form__input_error">
+          ${this.errors ? this.errors.toString() : ""}
+        </div>
       </div>
     `;
   }

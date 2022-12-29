@@ -1,5 +1,7 @@
 import "../../assets/styles/profile.less";
 import { Block } from "../../modules";
+import * as backArrowSvg from "../../assets/images/back-arrow.svg";
+import * as profilePng from "../../assets/images/profile.png";
 
 export default class Profile extends Block {
   protected render(): string {
@@ -8,14 +10,14 @@ export default class Profile extends Block {
         <div class="profile__back">
           <div class="profile__back_icon">
             <a href="./chat.hbs">
-              <img src="../../assets/images/back-arrow.svg" alt="Назад">
+              <img src=${backArrowSvg} alt="Назад">
             </a>
           </div>
         </div>
 
         <div class="profile__container">
           <div class="profile__container_avatar">
-            <img src="../../assets/images/profile.png" alt="Профиль">
+            <img src=${profilePng} alt="Профиль">
           </div>
 
           <h2 class="profile__container_title">Иван</h2>

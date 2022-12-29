@@ -7,6 +7,8 @@ interface navLinkProps {
 }
 
 export class NavLink extends Block {
+  static componentName = "NavLink";
+
   constructor({ ...props }: navLinkProps) {
     super({ ...props });
   }

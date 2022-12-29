@@ -2,7 +2,7 @@ import Block from "../modules/block";
 
 const validationPatterns = {
   login: /^(?!\d+$)[A-Za-z-_0-9]{3,20}$/,
-  password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,40}$/,
+  password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{4,40}$/,
   phone: /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{7,10}$/,
   email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
   name: /^[A-ZА-ЯЁ][а-яА-ЯёЁa-zA-Z-]+$/,
@@ -85,14 +85,20 @@ export function onSubmitValidation(
   children: Record<string, Block>
 ) {
   for (const formDataKey in formData) {
-    for (const key in formValidation) {
-      if (key === formDataKey) {
-        const errors = (formValidation[key as keyof {}] as Function)(
-          formData[formDataKey]
-        );
-        children[key].errors = errors;
-        children[key].eventBus().emit(Block.EVENTS.FLOW_RENDER);
-      }
+    const component = Object.entries(children).find(([_, component]) => {
+      return (
+        component.getProps()?.validation &&
+        component.getProps().validation === formDataKey
+      );
+    });
+
+    if (component) {
+      const [_, child] = component;
+      //@ts-ignore
+      const errors = formValidation[formDataKey](formData[formDataKey]);
+
+      child.errors = errors;
+      child.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 }

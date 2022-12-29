@@ -9,7 +9,7 @@ export default class Chat extends Block {
           {{{ NavLink href='../pages/profile.hbs' class='chat__sidebar_link' text="Профиль" }}}
 
           <form class="chat__sidebar_search">
-            <input class="chat__sidebar_search-input" type="text" placeholder="Поиск" />
+            {{{ Input className="chat__sidebar_search-input" type="text" placeholder="Поиск" fullWidth="true" }}}
             <div class="chat__sidebar_search-icon"></div>
           </form>
 
@@ -106,7 +106,7 @@ export default class Chat extends Block {
             <button class="chat__footer_button-more">
               <img src="../../assets/images/clip.svg" />
             </button>
-            <input class="chat__footer_message-input" name="message" type="text" placeholder="Сообщение">
+            {{{ Input className="chat__footer_message-input" name="message" type="text" placeholder="Сообщение" fullWidth="true" }}}
             <button class="chat__footer_button-enter">
               <img src="../../assets/images/right-arrow.svg" />
             </button>

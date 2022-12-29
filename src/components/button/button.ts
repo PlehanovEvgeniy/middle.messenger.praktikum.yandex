@@ -3,10 +3,13 @@ import { Block } from "../../modules";
 
 interface ButtonProps {
   text: string;
+  type: "submit" | "button";
   onClick?: () => void;
 }
 
 export class Button extends Block {
+  static componentName = "Button";
+
   constructor({ onClick, ...props }: ButtonProps) {
     super({ ...props, events: { click: onClick } });
   }
@@ -14,7 +17,7 @@ export class Button extends Block {
   protected render(): string {
     return `
     <div id="button">
-      <button type="button" class="button">{{text}}</button>
+      <button type={{type}} class="button">{{text}}</button>
     </div>`;
   }
 }

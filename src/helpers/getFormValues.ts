@@ -1,9 +1,10 @@
-import Block from '../modules/Block';
+export default function getFormValues() {
+  const fields = document.querySelectorAll("input");
+  const values: Record<string, string> = {};
 
-export default function getFormValues(this: any) {
-	const fields = document.querySelectorAll('input');
-	fields.forEach(field => {
-		this.formValues[field.name] = field.value;
-	});
-	this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+  fields.forEach((field) => {
+    values[field.name] = field.value;
+  });
+
+  return values;
 }

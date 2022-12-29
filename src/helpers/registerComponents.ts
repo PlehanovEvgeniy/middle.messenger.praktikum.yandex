@@ -10,7 +10,9 @@ export default function registerComponents(
 ) {
   components.forEach((component) => {
     Handlebars.registerHelper(
-      component.name,
+      //@ts-ignore
+      component["componentName"] || component.name,
+
       function ({ hash: { ref, ...hash }, data }: HelperOptions) {
         const { children = {}, refs = {} } = data.root;
 

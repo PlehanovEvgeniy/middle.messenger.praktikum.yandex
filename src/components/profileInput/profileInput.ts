@@ -4,6 +4,8 @@ import { Block } from "../../modules";
 interface ProfileInputProps {}
 
 export class ProfileInput extends Block {
+  static componentName = "ProfileInput";
+
   constructor({ ...props }: ProfileInputProps) {
     super({ ...props });
   }

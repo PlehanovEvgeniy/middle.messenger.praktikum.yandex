@@ -6,14 +6,27 @@
   border: none;
   width: 280px;
 
+  input:focus {
+    outline: none;
+  }
+
   &__input {
     padding: 8px 0 7px 0;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     border: none;
     border-bottom: 1px solid @color-blue;
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
+
+    &_error {
+      font-size: 12px;
+      color: @color-red;
+    }
+  }
+
+  &__input:focus {
+    outline: none;
   }
 
   &__label {
@@ -21,6 +34,10 @@
     line-height: 9px;
     color: @color-light-gray;
   }
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 .profile-form {
@@ -42,6 +59,10 @@
     font-size: 13px;
     line-height: 13px;
     color: @color-light-gray;
+  }
+
+  &__input:focus {
+    outline: none;
   }
 
   &__label {
