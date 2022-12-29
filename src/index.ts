@@ -1,10 +1,14 @@
 import "./assets/styles/global.less";
 import "./assets/styles/normalize.less";
 import { registerComponents, renderDOM } from "./helpers";
-import Button from "./components/button";
 import NotFound from "./pages/notFound/notFound";
 
-registerComponents([Button]);
+import Button from "./components/button";
+import NavLink from "./components/navLink";
+import Input from "./components/input";
+import ProfileInput from "./components/profileInput";
+
+registerComponents([Button, NavLink, Input, ProfileInput]);
 
 const routes = {
   ["#404"]: NotFound,
