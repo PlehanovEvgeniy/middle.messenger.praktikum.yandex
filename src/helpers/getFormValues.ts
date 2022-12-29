@@ -1,6 +1,6 @@
-import Block from './Block';
+import Block from '../modules/Block';
 
-export function getFormValues(this: any) {
+export default function getFormValues(this: any) {
 	const fields = document.querySelectorAll('input');
 	fields.forEach(field => {
 		this.formValues[field.name] = field.value;

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "education project web",
   "scripts": {
-    "dev": "parcel src/pages/index.hbs --no-cache",
+    "dev": "parcel src/index.html --no-cache",
     "build": "parcel build src/pages/index.hbs",
     "start": "parcel build src/pages/index.hbs && node ./app.js"
   },
