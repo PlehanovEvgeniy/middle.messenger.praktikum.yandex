@@ -1,7 +1,28 @@
 import "../../assets/styles/chat.less";
 import { Block } from "../../modules";
+import { getFormValues } from "../../helpers";
+import { onSubmitValidation } from "../../helpers/validation";
+import * as moreSvg from "../../assets/images/more.svg";
+import * as clipSvg from "../../assets/images/clip.svg";
+import * as rightArrowSvg from "../../assets/images/right-arrow.svg";
 
 export default class Chat extends Block {
+  constructor() {
+    const onSubmit = (event: Event) => {
+      event.preventDefault();
+
+      const values = getFormValues();
+      onSubmitValidation(values, this.children);
+      console.log("Message", values);
+    };
+
+    super({
+      events: {
+        submit: onSubmit,
+      },
+    });
+  }
+
   protected render(): string {
     return `
       <div id="chat" class="chat">
@@ -72,7 +93,7 @@ export default class Chat extends Block {
               </div>
   
               <button class="chat__block_header-more">
-                <img src="../../assets/images/more.svg" />
+                <img src=${moreSvg} />
               </button>
           </div>
 
@@ -104,11 +125,11 @@ export default class Chat extends Block {
 
           <form class="chat__footer" >
             <button class="chat__footer_button-more">
-              <img src="../../assets/images/clip.svg" />
+              <img src=${clipSvg} />
             </button>
-            {{{ Input className="chat__footer_message-input" name="message" type="text" placeholder="Сообщение" fullWidth="true" }}}
-            <button class="chat__footer_button-enter">
-              <img src="../../assets/images/right-arrow.svg" />
+            {{{ Input className="chat__footer_message-input" name="message" type="text" placeholder="Сообщение" fullWidth="true" validation="message" }}}
+            <button type="submit" class="chat__footer_button-enter">
+              <img src=${rightArrowSvg} />
             </button>
           </form>
         </div>

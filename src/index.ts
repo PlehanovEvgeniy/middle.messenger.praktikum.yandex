@@ -31,5 +31,6 @@ const routes = {
 
 document.addEventListener("DOMContentLoaded", () => {
   const hash = document.location.hash;
+  // @ts-ignore
   renderDOM("#app", routes[hash]);
 });

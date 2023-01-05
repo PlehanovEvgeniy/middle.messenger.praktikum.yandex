@@ -41,7 +41,6 @@ export class Input extends Block {
   }
 
   protected render(): string {
-    console.log(this.getProps());
     return `
       <div class="form {{#if fullWidth}} fullWidth {{/if}}">
         <label class="form__label" for={{name}}>{{label}}</label>

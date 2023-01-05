@@ -2,8 +2,8 @@ import Block from "../modules/block";
 
 const validationPatterns = {
   login: /^(?!\d+$)[A-Za-z-_0-9]{3,20}$/,
-  password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{4,40}$/,
-  phone: /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{7,10}$/,
+  password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,40}$/,
+  phone: /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{10,15}$/,
   email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
   name: /^[A-ZА-ЯЁ][а-яА-ЯёЁa-zA-Z-]+$/,
   message: /.+/,
@@ -67,7 +67,7 @@ export function messageValidation() {
   }
 }
 
-export const formValidation = {
+export const formValidation: {[key in string]: (value: unknown) => string | undefined} = {
   login: loginValidation,
   password: passwordValidation,
   newPassword: passwordValidation,
@@ -94,7 +94,6 @@ export function onSubmitValidation(
 
     if (component) {
       const [_, child] = component;
-      //@ts-ignore
       const errors = formValidation[formDataKey](formData[formDataKey]);
 
       child.errors = errors;
