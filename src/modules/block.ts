@@ -7,7 +7,11 @@ type Keys<T extends Record<string, unknown>> = keyof T;
 type Values<T extends Record<string, unknown>> = T[Keys<T>];
 type Events = Values<typeof Block.EVENTS>;
 
-export default class Block<P = any> {
+export interface BlockProps {
+  [key:string]: unknown;
+}
+
+export default class Block<P = BlockProps> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",

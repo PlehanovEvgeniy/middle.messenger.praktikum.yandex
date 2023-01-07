@@ -1,8 +1,8 @@
 import "./input.less";
-import { Block } from "../../modules";
+import { Block, BlockProps } from "../../modules";
 import { formValidation } from "../../helpers/validation";
 
-interface InputProps {
+interface InputProps extends BlockProps {
   name: string;
   label?: string;
   type?: "text" | "email" | "password" | "tel" | "file";
@@ -12,7 +12,7 @@ interface InputProps {
   fullWidth?: boolean;
 }
 
-export class Input extends Block {
+export class Input extends Block<InputProps> {
   static componentName = "Input";
   private value: string | undefined = "";
 

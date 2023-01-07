@@ -1,15 +1,15 @@
 import "./navLink.less";
-import { Block } from "../../modules";
+import { Block, BlockProps } from "../../modules";
 
-interface navLinkProps {
+interface NavLinkProps extends BlockProps {
   text: string;
   href: string;
 }
 
-export class NavLink extends Block {
+export class NavLink extends Block<NavLinkProps> {
   static componentName = "NavLink";
 
-  constructor({ ...props }: navLinkProps) {
+  constructor({ ...props }: NavLinkProps) {
     super({ ...props });
   }
 

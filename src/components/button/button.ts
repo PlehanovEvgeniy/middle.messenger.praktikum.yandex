@@ -1,13 +1,13 @@
 import "./button.less";
-import { Block } from "../../modules";
+import { Block, BlockProps } from "../../modules";
 
-interface ButtonProps {
+interface ButtonProps extends BlockProps {
   text: string;
   type: "submit" | "button";
   onClick?: () => void;
 }
 
-export class Button extends Block {
+export class Button extends Block<ButtonProps> {
   static componentName = "Button";
 
   constructor({ onClick, ...props }: ButtonProps) {

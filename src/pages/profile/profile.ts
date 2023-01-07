@@ -24,10 +24,10 @@ export default class Profile extends Block {
           <form class="profile__container_info">
             {{{ ProfileInput type='email' name='email' label='Почта' placeholder='pochta@yandex.ru' }}}
             {{{ ProfileInput type='text' name='login' label='Логин' placeholder='ivanivanov' }}}
-            {{{ ProfileInput type='text' name='name' label='Имя' placeholder='Иван' }}}
-            {{{ ProfileInput type='text' name='surname' label='Фамилия' placeholder='Иванов' }}}
-            {{{ ProfileInput type='text' name='chatName' label='Имя в чате' placeholder='Иван' }}}
-            {{{ ProfileInput type='tel' name='tel' label='Телефон' placeholder='+7-909-967-30-30' }}}
+            {{{ ProfileInput type='text' name='first_name' label='Имя' placeholder='Иван' }}}
+            {{{ ProfileInput type='text' name='second_name' label='Фамилия' placeholder='Иванов' }}}
+            {{{ ProfileInput type='text' name='display_name' label='Имя в чате' placeholder='Иван' }}}
+            {{{ ProfileInput type='tel' name='phone' label='Телефон' placeholder='+7-909-967-30-30' }}}
           </form>
 
           <div class="profile__container_data">

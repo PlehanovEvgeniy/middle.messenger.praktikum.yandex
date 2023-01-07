@@ -41,10 +41,10 @@ export default class ChangeData extends Block {
           <div class="profile__container_info">
             {{{ ProfileInput type='email' name='email' label='Почта' placeholder='pochta@yandex.ru' validation="email" }}}
             {{{ ProfileInput type='text' name='login' label='Логин' placeholder='ivanivanov' validation="login" }}}
-            {{{ ProfileInput type='text' name='name' label='Имя' placeholder='Иван' validation="first_name" }}}
-            {{{ ProfileInput type='text' name='surname' label='Фамилия' placeholder='Иванов' validation="second_name" }}}
-            {{{ ProfileInput type='text' name='chatName' label='Имя в чате' placeholder='Иван' validation="first_name" }}}
-            {{{ ProfileInput type='tel' name='tel' label='Телефон' placeholder='+7-909-967-30-30'  validation="phone" }}}
+            {{{ ProfileInput type='text' name='first_name' label='Имя' placeholder='Иван' validation="first_name" }}}
+            {{{ ProfileInput type='text' name='second_name' label='Фамилия' placeholder='Иванов' validation="second_name" }}}
+            {{{ ProfileInput type='text' name='display_name' label='Имя в чате' placeholder='Иван' validation="first_name" }}}
+            {{{ ProfileInput type='tel' name='phone' label='Телефон' placeholder='+7-909-967-30-30'  validation="phone" }}}
           </div>
    
           {{{ Button type="submit" text="Сохранить" }}}

@@ -28,9 +28,9 @@ export default class Registration extends Block {
         <div class="auth__form_input">
           {{{ Input type="text" placeholder="example@example.ru" label="Почта" name="email" validation="email" }}}
           {{{ Input type="text" placeholder="ivanivanov" label="Логин" name="login" validation="login" }}}
-          {{{ Input type="text" placeholder="Ivan" label="Имя" name="name" validation="first_name" }}}
-          {{{ Input type="text" placeholder="Ivanov" label="Фамилия" name="surname" validation="second_name" }}}
-          {{{ Input type="tel" placeholder="+7-999-999-99-99" label="Телефон" name="tel" validation="phone" }}}
+          {{{ Input type="text" placeholder="Ivan" label="Имя" name="first_name" validation="first_name" }}}
+          {{{ Input type="text" placeholder="Ivanov" label="Фамилия" name="second_name" validation="second_name" }}}
+          {{{ Input type="tel" placeholder="+7-999-999-99-99" label="Телефон" name="phone" validation="phone" }}}
           {{{ Input type="password" placeholder="Пароль" label="Пароль" name="password" validation="newPassword" }}}
           {{{ Input type="password" placeholder="Пароль" label="Пароль (ещё раз)" name="password" validation="confirmPassword" }}}
         </div>

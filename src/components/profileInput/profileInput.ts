@@ -1,8 +1,8 @@
 import "./profileInput.less";
-import { Block } from "../../modules";
+import { Block, BlockProps } from "../../modules";
 import { formValidation } from "../../helpers/validation";
 
-interface ProfileInputProps {
+interface ProfileInputProps extends BlockProps {
   name: string;
   label?: string;
   validation?: string;
@@ -10,7 +10,7 @@ interface ProfileInputProps {
   placeholder?: string;
 }
 
-export class ProfileInput extends Block {
+export class ProfileInput extends Block<ProfileInputProps> {
   static componentName = "ProfileInput";
   private value: string | undefined = "";
 

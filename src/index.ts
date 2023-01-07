@@ -15,22 +15,33 @@ import Profile from "./pages/profile/profile";
 import ChangeData from "./pages/changeData/changeData";
 import ChangePassword from "./pages/changePassword/changePassword";
 import Chat from "./pages/chat/chat";
+import Navigation from "./pages/navigation/navigation";
 
 registerComponents([Button, NavLink, Input, ProfileInput]);
 
 const routes = {
-  ["#404"]: NotFound,
-  ["#500"]: ServerError,
-  ["#login"]: Login,
-  ["#registration"]: Registration,
-  ["#profile"]: Profile,
-  ["#changeData"]: ChangeData,
-  ["#changePassword"]: ChangePassword,
-  ["#chat"]: Chat
+  ["/404"]: NotFound,
+  ["/500"]: ServerError,
+  ["/login"]: Login,
+  ["/registration"]: Registration,
+  ["/profile"]: Profile,
+  ["/changeData"]: ChangeData,
+  ["/changePassword"]: ChangePassword,
+  ["/chat"]: Chat,
+  ["/"]: Navigation
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const hash = document.location.hash;
+  const url = document.location.pathname
+
+  console.log(url)
+
   // @ts-ignore
-  renderDOM("#app", routes[hash]);
+  if (routes[url]) {
+    // @ts-ignore
+    renderDOM("#app", routes[url]);
+  } else {
+    // @ts-ignore
+    renderDOM("#app", NotFound);
+  }
 });
