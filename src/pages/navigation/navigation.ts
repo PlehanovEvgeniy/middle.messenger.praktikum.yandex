@@ -1,5 +1,4 @@
 import { Block } from "../../modules";
-import "../../components/navLink";
 
 export default class Navigation extends Block {
   constructor() {
@@ -22,7 +21,7 @@ export default class Navigation extends Block {
       <div class="navigation">
         <ul class="navigation_list">
             {{#each pages as | page |}}
-                <li><a class="link" href={{url}}>{{title}}</a></li>
+                <li><a href={{url}}>{{title}}</a></li>
             {{/each}}
         </ul>
       </div>
