@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "color-hex-case": "lower",
+    "function-url-quotes": null,
+    "number-leading-zero": null,
+    "selector-class-pattern": null,
+    "alpha-value-notation": "number"
+  },
+  "ignoreFiles": ["dist/*", "build/*", "src/assets/styles/normalize.css"]
+}
