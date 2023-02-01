@@ -1,11 +1,12 @@
 import "./assets/styles/global.less";
 import "./assets/styles/normalize.less";
 import { registerComponents, renderDOM } from "./helpers";
-
+import { Router } from "./services/router";
 import Button from "./components/button";
 import NavLink from "./components/navLink";
 import Input from "./components/input";
 import ProfileInput from "./components/profileInput";
+import Link from "./components/link";
 
 import NotFound from "./pages/notFound/notFound";
 import ServerError from "./pages/serverError/serverError";
@@ -17,31 +18,22 @@ import ChangePassword from "./pages/changePassword/changePassword";
 import Chat from "./pages/chat/chat";
 import Navigation from "./pages/navigation/navigation";
 
-registerComponents([Button, NavLink, Input, ProfileInput]);
-
-const routes = {
-  ["/404"]: NotFound,
-  ["/500"]: ServerError,
-  ["/login"]: Login,
-  ["/registration"]: Registration,
-  ["/profile"]: Profile,
-  ["/changeData"]: ChangeData,
-  ["/changePassword"]: ChangePassword,
-  ["/chat"]: Chat,
-  ["/"]: Navigation
-};
+registerComponents([Button, Link, NavLink, Input, ProfileInput]);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const url = document.location.pathname
+  const router = new Router("#app");
 
-  console.log(url)
+  window.router = router;
 
-  // @ts-ignore
-  if (routes[url]) {
-    // @ts-ignore
-    renderDOM("#app", routes[url]);
-  } else {
-    // @ts-ignore
-    renderDOM("#app", NotFound);
-  }
+  router
+    .use("/404", NotFound)
+    .use("/500", ServerError)
+    .use("/login", Login)
+    .use("/registration", Registration)
+    .use("/profile", Profile)
+    .use("/changeData", ChangeData)
+    .use("/changePassword", ChangePassword)
+    .use("/chat", Chat)
+    .use("/", Navigation)
+    .start();
 });

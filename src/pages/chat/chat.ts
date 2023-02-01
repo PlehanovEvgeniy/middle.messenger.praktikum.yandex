@@ -27,7 +27,7 @@ export default class Chat extends Block {
     return `
       <div id="chat" class="chat">
         <div class="chat__sidebar">
-          {{{ NavLink href='../pages/profile.hbs' class='chat__sidebar_link' text="Профиль" }}}
+          {{{ Link href='/profile' className='chat__sidebar_link' text="Профиль" }}}
 
           <form class="chat__sidebar_search">
             {{{ Input className="chat__sidebar_search-input" type="text" placeholder="Поиск" fullWidth="true" }}}

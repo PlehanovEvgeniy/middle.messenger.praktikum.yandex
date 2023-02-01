@@ -37,7 +37,7 @@ export default class Registration extends Block {
 
         <div class="auth__form_buttons">
           {{{ Button type="submit" text="Зарегистрироваться" }}}
-          {{{ NavLink href='#login' text="Войти" }}}
+          {{{ Link href="/login" text="Войти" }}}
         </div>
 
       </form>

@@ -9,9 +9,8 @@ export default class Profile extends Block {
       <div class="profile">
         <div class="profile__back">
           <div class="profile__back_icon">
-            <a href="./chat.hbs">
-              <img src=${backArrowSvg} alt="Назад">
-            </a>
+            <img src=${backArrowSvg} alt="Назад"> 
+            {{{ Link href="/chat" className="profile__back_btn" }}}
           </div>
         </div>
 
@@ -31,9 +30,9 @@ export default class Profile extends Block {
           </form>
 
           <div class="profile__container_data">
-            <a class="profile__container_data-link" href="./changeData.hbs">Изменить данные</a>
-            <a class="profile__container_data-link" href="./changePassword.hbs">Изменить пароль</a>
-            <a class="profile__container_data-link" href="./registration.hbs">Выйти</a>
+            {{{ Link href="/changeData" className="profile__container_data-link" text="Изменить данные" }}}
+            {{{ Link href="/changePassword" className="profile__container_data-link" text="Изменить пароль" }}}
+            {{{ Link href="/login" className="profile__container_data-link" text="Выйти" }}}
           </div>
         </div>
       </div>

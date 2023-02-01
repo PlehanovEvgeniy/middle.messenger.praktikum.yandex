@@ -8,7 +8,7 @@ export default class NotFound extends Block {
         <h1 class="error__title">404</h1>
         <h3 class="error__subtitle">Не туда попали</h3>
 
-        {{{ NavLink href="./chat.hbs" text="Назад к чатам" }}}
+        {{{ Link href="/chat" text="Назад к чатам" }}}
       </div>
       `;
   }

@@ -15,9 +15,9 @@ export class NavLink extends Block<NavLinkProps> {
 
   protected render(): string {
     return `
-    <div id="navLink">
-      <a href='{{href}}' class='link'>{{text}}</a>
-    </div>
+      <div id="navLink">
+        {{{ Link href='{{href}}' class='link' text="{{text}}"  }}} 
+      </div>
     `;
   }
 }

@@ -39,7 +39,7 @@ export class Router {
     return this.routes.find((route) => route.match(pathname));
   }
 
-  use(pathname: string, block) {
+  use(pathname: string, block: any) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
     this.routes.push(route);
 
@@ -48,7 +48,8 @@ export class Router {
 
   start() {
     window.onpopstate = (event) => {
-      this._onRoute(event.currentTarget.location.pathname);
+      // @ts-ignore
+      event.currentTarget && this._onRoute(event.currentTarget.location.pathname);
     };
 
     this._onRoute(window.location.pathname);

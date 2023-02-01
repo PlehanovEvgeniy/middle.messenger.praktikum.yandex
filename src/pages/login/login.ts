@@ -32,7 +32,7 @@ export default class Login extends Block {
     
         <div class="auth__form_buttons">
           {{{ Button text="Авторизоваться" type="submit" }}}
-          {{{ NavLink href='#registration' text="Нет аккаунта?" }}}
+          {{{ Link href="/registration" text="Нет акаунта?" }}}
         </div>
       </form>
     `;

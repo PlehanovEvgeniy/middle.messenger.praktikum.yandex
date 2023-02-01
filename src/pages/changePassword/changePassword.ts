@@ -28,7 +28,7 @@ export default class ChangePassword extends Block {
       <form class="profile">
         <div class="profile__back">
           <div class="profile__back_icon">
-            <a href="./chat.hbs">
+          {{{ Link href="/chat" }}}
               <img src=${backArrowSvg} alt="Назад">
             </a>
           </div>
