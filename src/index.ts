@@ -1,6 +1,6 @@
 import "./assets/styles/global.less";
 import "./assets/styles/normalize.less";
-import { registerComponents, renderDOM } from "./helpers";
+import { registerComponents } from "./helpers";
 import { Router } from "./services/router";
 import Button from "./components/button";
 import NavLink from "./components/navLink";
