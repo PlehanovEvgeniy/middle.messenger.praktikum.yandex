@@ -8,6 +8,8 @@ interface ProfileInputProps extends BlockProps {
   validation?: string;
   type?: "text" | "email" | "password" | "tel" | "file";
   placeholder?: string;
+  disabled?: boolean;
+  value?: string;
 }
 
 export class ProfileInput extends Block<ProfileInputProps> {
@@ -16,6 +18,7 @@ export class ProfileInput extends Block<ProfileInputProps> {
 
   constructor(props: ProfileInputProps) {
     super({
+      disabled: false,
       ...props,
       events: {
         change: (e: Event) => {
@@ -35,6 +38,7 @@ export class ProfileInput extends Block<ProfileInputProps> {
         },
       },
     });
+    this.value = props.value;
   }
 
   protected render(): string {
@@ -50,6 +54,9 @@ export class ProfileInput extends Block<ProfileInputProps> {
           placeholder={{placeholder}}
           name={{name}}
           value="{{value}}"
+          {{#if disabled}}
+            disabled
+          {{/if}}
         />
       </div>
     `;

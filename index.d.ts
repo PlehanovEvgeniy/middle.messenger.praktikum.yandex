@@ -3,6 +3,7 @@ declare module "*.svg";
 declare global {
   export interface Window {
     router: Router;
+    store: Store;
   }
 }
 

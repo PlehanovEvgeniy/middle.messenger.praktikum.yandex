@@ -14,9 +14,8 @@ export class Link extends Block<LinkProps> {
       ...props,
       className: props.className ?? "link",
       events: {
-        onclick: (event: MouseEvent) => {
+        click: (event: MouseEvent) => {
           event.preventDefault();
-          console.log(props.href);
           // @ts-ignore
           window.router.go(props.href);
         },
@@ -26,7 +25,7 @@ export class Link extends Block<LinkProps> {
 
   protected render(): string {
     return `
-      <a href={{href}} class="{{className}}" click>{{text}}</a>
+      <a href="javascript:void(0);" class="{{className}}" click>{{text}}</a>
     `;
   }
 }

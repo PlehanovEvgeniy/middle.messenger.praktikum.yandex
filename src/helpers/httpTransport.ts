@@ -58,11 +58,17 @@ export class HTTPTransport {
     options: Options = { method: METHOD.GET }
   ): Promise<XMLHttpRequest> {
     const { headers = {}, method, data } = options;
+    if (
+      !headers["content-type"] &&
+      !(data && data instanceof window.FormData)
+    ) {
+      headers["content-type"] = "application/json";
+    }
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const currentUrl = `${this.baseUrl}${url}`;
-
+      xhr.withCredentials = true;
       xhr.open(
         method,
         method === METHOD.GET && data
@@ -84,11 +90,15 @@ export class HTTPTransport {
 
       if (method === METHOD.GET || !data) {
         xhr.send();
+      } else if (data instanceof FormData) {
+        xhr.send(data as FormData);
       } else {
-        xhr.send(data as XMLHttpRequestBodyInit);
+        xhr.send(JSON.stringify(data) as XMLHttpRequestBodyInit);
       }
     });
   }
 }
 
-export const ApiInstance = new HTTPTransport("ya-praktikum.tech/api/v2");
+export const ApiInstance = new HTTPTransport(
+  "https://ya-praktikum.tech/api/v2/"
+);

@@ -6,18 +6,7 @@ import {
   ProfileUserUpd,
 } from "./apiUser.model";
 
-
-export default class ApiChatService {
-  private static __instance: ApiChatService;
-
-  constructor() {
-    if (ApiChatService.__instance) {
-      return ApiChatService.__instance;
-    }
-
-    ApiChatService.__instance = this;
-  }
-
+class ApiUserService {
   updateUserInfo(data: ProfileUserUpd): Promise<XMLHttpRequest> {
     return ApiInstance.put("user/profile", {
       data,
@@ -25,8 +14,12 @@ export default class ApiChatService {
   }
 
   updateUserAvatar(data: ProfileUserAvatarUpd): Promise<XMLHttpRequest> {
+    const formData = new FormData();
+
+    formData.set("avatar", data.avatar as Blob);
+
     return ApiInstance.put("user/profile/avatar", {
-      data,
+      data: formData,
     });
   }
 
@@ -42,3 +35,5 @@ export default class ApiChatService {
     });
   }
 }
+
+export const ApiUser = new ApiUserService();

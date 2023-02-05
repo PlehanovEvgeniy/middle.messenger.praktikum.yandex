@@ -1,19 +1,9 @@
 import { ApiInstance } from "../../helpers/httpTransport";
 import { LoginInrerface, RegisterInrerface } from "./apiAuth.model";
 
-export default class ApiAuthService {
-  private static __instance: ApiAuthService;
-
-  constructor() {
-    if (ApiAuthService.__instance) {
-      return ApiAuthService.__instance;
-    }
-
-    ApiAuthService.__instance = this;
-  }
-
+class ApiAuthService {
   registation(data: RegisterInrerface): Promise<XMLHttpRequest> {
-    return ApiInstance.get("auth/signup", {
+    return ApiInstance.post("auth/signup", {
       data,
     });
   }
@@ -32,3 +22,5 @@ export default class ApiAuthService {
     return ApiInstance.post("auth/logout");
   }
 }
+
+export const apiAuth = new ApiAuthService();

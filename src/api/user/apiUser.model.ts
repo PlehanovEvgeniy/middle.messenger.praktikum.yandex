@@ -1,32 +1,32 @@
 export interface User {
-    id: string;
-    first_name: string;
-    second_name: string;
-    display_name: string;
-    login: string;
-    email: string;
-    phone: string;
-    avatar: string;
+  id: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string;
 }
 
 export interface ProfileUserUpd {
-    first_name: string;
-    second_name: string;
-    display_name: string;
-    login: string;
-    email: string;
-    phone: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
 }
 
 export interface ProfileUserAvatarUpd {
-    avatar: string;
+  avatar: File;
 }
 
 export interface ProfileUserSearch {
-    login: string;
+  login: string;
 }
 
 export interface ProfileUserPasswordUpd {
-    oldPassword: string;
-    newPassword: string;
+  oldPassword: string;
+  newPassword: string;
 }

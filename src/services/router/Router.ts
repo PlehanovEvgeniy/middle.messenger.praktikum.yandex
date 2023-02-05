@@ -48,14 +48,18 @@ export class Router {
 
   start() {
     window.onpopstate = (event) => {
-      // @ts-ignore
-      event.currentTarget && this._onRoute(event.currentTarget.location.pathname);
+      event.currentTarget &&
+        // @ts-ignore
+        this._onRoute(event.currentTarget.location.pathname);
     };
 
     this._onRoute(window.location.pathname);
   }
 
   go(pathname: string) {
+    // if (!window.store.state.user) {
+    //   pathname = "/";
+    // }
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
