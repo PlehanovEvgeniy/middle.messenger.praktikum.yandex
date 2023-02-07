@@ -74,18 +74,18 @@ export default class Block<P = BlockProps> {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
-  _componentDidMount(props: P) {
-    this.componentDidMount(props);
+  async _componentDidMount(props: P) {
+    await this.componentDidMount(props);
   }
 
   componentDidMount(props: P) {}
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
-    if (!response) {
-      return;
-    }
-    this._render();
+    // if (!response) {
+    //   return;
+    // }
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
   componentDidUpdate(oldProps: P, newProps: P) {
@@ -96,8 +96,10 @@ export default class Block<P = BlockProps> {
     if (!nextProps) {
       return;
     }
+    const oldProps = { ...this.props };
     // @ts-ignore
     Object.assign(this.props, nextProps);
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, nextProps);
   };
 
   setState = (nextState: Record<string, unknown>) => {

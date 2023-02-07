@@ -27,3 +27,36 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.modal {
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: @color-black;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  display: none;
+  &-open {
+    display: flex;
+  }
+  &__title {
+    margin-bottom: 32px;
+  }
+  &__form {
+    margin-bottom: 32px;
+  }
+  &__content {
+    width: 500px;
+    border-radius: 30px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: @color-white;
+    gap: 10px;
+  }
+}

@@ -8,6 +8,22 @@
   min-height: 100vh;
   position: relative;
 
+  &__btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    color: @color-white;
+    background-color: @color-blue;
+
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+
+    cursor: pointer;
+  }
+
   &__container {
     display: flex;
     flex-direction: row;
@@ -143,8 +159,8 @@
     position: relative;
 
     &_empty-space {
+      display: flex;
       height: 100%;
-      display: none;
       justify-content: center;
       align-items: center;
 

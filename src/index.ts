@@ -8,7 +8,9 @@ import NavLink from "./components/navLink";
 import Input from "./components/input";
 import ProfileInput from "./components/profileInput";
 import Link from "./components/link";
-import ProfileAvatar from './components/profileAvatar';
+import ProfileAvatar from "./components/profileAvatar";
+import ChatList from "./components/chatList";
+import ChatMessage from "./components/chatMessage";
 
 import NotFound from "./pages/notFound/notFound";
 import ServerError from "./pages/serverError/serverError";
@@ -19,12 +21,21 @@ import ChangeData from "./pages/changeData/changeData";
 import ChangePassword from "./pages/changePassword/changePassword";
 import Chat from "./pages/chat/chat";
 
-registerComponents([Button, Link, NavLink, Input, ProfileInput, ProfileAvatar]);
+registerComponents([
+  Button,
+  Link,
+  NavLink,
+  Input,
+  ProfileInput,
+  ProfileAvatar,
+  ChatList,
+  ChatMessage,
+]);
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("rerender");
   const router = new Router("#app");
-  const store = new Store({ currentUser: null });
+  const store = new Store({ currentUser: null, chats: [] });
 
   window.router = router;
   window.store = store;

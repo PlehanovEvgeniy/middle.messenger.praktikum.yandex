@@ -1,19 +1,11 @@
 import { ApiInstance } from "../../helpers/httpTransport";
 import { CreateChat, UpdateUsers } from "./apiChat.model";
 
-export default class ApiChatService {
-  private static __instance: ApiChatService;
+class ApiChatService {
+  async getChats(): Promise<XMLHttpRequest> {
+    const data = await ApiInstance.get("chats");
 
-  constructor() {
-    if (ApiChatService.__instance) {
-      return ApiChatService.__instance;
-    }
-
-    ApiChatService.__instance = this;
-  }
-
-  getChats(): Promise<XMLHttpRequest> {
-    return ApiInstance.get("chats");
+    return JSON.parse(data.response);
   }
 
   getChatUsers(id: number): Promise<XMLHttpRequest> {
@@ -50,3 +42,5 @@ export default class ApiChatService {
     });
   }
 }
+
+export const apiChat = new ApiChatService();
