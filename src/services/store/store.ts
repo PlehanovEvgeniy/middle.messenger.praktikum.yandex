@@ -1,5 +1,9 @@
-export class Store {
+import EventBus from "../../modules/eventBus";
+
+export class Store extends EventBus {
   constructor(initionalState: any) {
+    super();
+
     this._state = { ...initionalState };
   }
 
@@ -10,6 +14,9 @@ export class Store {
   }
 
   dispatch(newState: any): void {
+    const prevState = this._state;
     this._state = { ...this._state, ...newState };
+
+    this.emit("changed", prevState, this._state);
   }
 }

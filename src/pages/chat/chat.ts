@@ -1,16 +1,16 @@
 import "../../assets/styles/chat.less";
 import { Block } from "../../modules";
-import { getFormValues } from "../../helpers";
+import { getFormValues, messages } from "../../helpers";
 import { onSubmitValidation } from "../../helpers/validation";
 import { apiChat } from "../../api";
 
+import * as moreSvg from "../../assets/images/more.svg";
 import * as clipSvg from "../../assets/images/clip.svg";
 import * as rightArrowSvg from "../../assets/images/right-arrow.svg";
 
 export default class Chat extends Block {
   constructor() {
     const { currentUser } = window.store.state;
-
     const onAddChat = () => {
       this.openChatModal();
     };
@@ -24,6 +24,8 @@ export default class Chat extends Block {
       if (hasError) {
         return;
       }
+
+      messages.sendMessage(values.message);
     };
 
     const onCreateChat = async () => {
@@ -41,11 +43,27 @@ export default class Chat extends Block {
       this.closeChatModal();
     };
 
-    const onSelectChat = (id: number) => {
+    const onSelectChat = async (id: number) => {
+      const chat = window.store.state.chats.find((chat: any) => chat.id === id);
+
       this.setProps({
         ...this.props,
-        currentChat: {},
+        messages: [],
+        currentChat: chat,
       });
+
+      window.store.dispatch({ currentChat: chat });
+
+      await messages.connect(id);
+      window.store.on("changed", (prevState: any, newState: any) => {
+        if (newState.messages && newState.messages.length) {
+          this.setProps({
+            ...this.props,
+            messages: newState.messages,
+          });
+        }
+      });
+
       this.render();
     };
 
@@ -55,10 +73,20 @@ export default class Chat extends Block {
       createChat: onCreateChat,
       closeChatModal: onCloseChatModal,
       onSelectChat,
+      showMoreMenu: () => this.showMoreMenu(),
+      onDeleteChat: () => this.onDeleteChat(),
+      onAddUserModal: () => this.openAddUserModal(),
+      onDeleteUserModal: () => this.openDeleteUserModal(),
+      onAddUser: () => this.onAddUser(),
+      onDeleteUser: () => this.onDeleteUser(),
+      closeAddUserModal: () => this.closeAddUserModal(),
+      closeDeleteUserModal: () => this.closeDeleteUserModal(),
       events: {
         submit: onSubmit,
       },
     });
+
+    document.addEventListener("keydown", this.onKeyDown.bind(this));
   }
 
   async getChats() {
@@ -67,7 +95,63 @@ export default class Chat extends Block {
       ...this.props,
       chats,
     });
+
+    window.store.dispatch({ chats });
     this.render();
+  }
+
+  showMoreMenu() {
+    const menu = document.getElementById("chatDropdown");
+    menu?.classList.toggle("chat__block_header__links--active");
+  }
+
+  async onAddUser() {
+    const values = getFormValues();
+    const chatId = window.store.state.currentChat.id;
+
+    await apiChat.addUsersToChat({
+      chatId: chatId,
+      users: [Number(values.addUser)],
+    });
+
+    this.closeAddUserModal();
+  }
+
+  async onDeleteUser() {
+    const values = getFormValues();
+    const chatId = window.store.state.currentChat.id;
+
+    await apiChat.deleteUsersFromChat({
+      chatId: chatId,
+      users: [Number(values.addUser)],
+    });
+
+    this.closeDeleteUserModal();
+  }
+
+  async onDeleteChat() {
+    const chatId = window.store.state.currentChat.id;
+    messages.disconnect();
+
+    await apiChat.deleteChat(chatId);
+
+    this.setProps({
+      ...this.props,
+      currentChat: null,
+    });
+    await this.getChats();
+  }
+
+  onKeyDown(event: any) {
+    if (event.code === "Escape") {
+      this.setProps({
+        ...this.props,
+        currentChat: null,
+      });
+
+      messages.disconnect();
+      this.render();
+    }
   }
 
   async componentDidMount() {
@@ -81,6 +165,26 @@ export default class Chat extends Block {
 
   closeChatModal() {
     const chatModal = document.getElementById("chatModal");
+    chatModal?.classList.remove("modal-open");
+  }
+
+  openAddUserModal() {
+    const chatModal = document.getElementById("addUserChatModal");
+    chatModal?.classList.add("modal-open");
+  }
+
+  closeAddUserModal() {
+    const chatModal = document.getElementById("addUserChatModal");
+    chatModal?.classList.remove("modal-open");
+  }
+
+  openDeleteUserModal() {
+    const chatModal = document.getElementById("deleteUserChatModal");
+    chatModal?.classList.add("modal-open");
+  }
+
+  closeDeleteUserModal() {
+    const chatModal = document.getElementById("deleteUserChatModal");
     chatModal?.classList.remove("modal-open");
   }
 
@@ -108,12 +212,42 @@ export default class Chat extends Block {
               <div class="chat__block_header-info">
                 <div class="chat__block_header-info_img"></div>
                   <p class="chat__block_header-info_title">
-                    Вадим
+                      {{currentChat.title}}
                   </p>
+                </div>
+                
+                {{#Button type="button" className="chat__block_header-more" onClick=showMoreMenu  text="кнопка, не знаю как прокинуть чилдрен в хендлбарс"}}
+                  <img src=${moreSvg} />
+                {{/Button}}
+                
+                <div id="chatDropdown" class="chat__block_header__links">
+                  <ul class="chat__block_header__links-list">
+                    <li class="chat__block_header__links-item">
+                      {{{ Button
+                        text="Добавить пользователя"
+                        className="chat__block_header__link"
+                        onClick=onAddUserModal
+                      }}}
+                    </li>
+                    <li class="chat__block_header__links-item">
+                      {{{ Button
+                        text="Удалить пользователя"
+                        className="chat__block_header__link"
+                        onClick=onDeleteUserModal
+                      }}}
+                    </li>
+                    <li class="chat__block_header__links-item">
+                      {{{ Button
+                        text="Удалить чат"
+                        className="chat__block_header__link"
+                        onClick=onDeleteChat
+                      }}}
+                    </li>
+                  </ul>
                 </div>
             </div>
 
-            {{{ChatMessage chats=chats}}}
+            {{{ChatMessages messages=messages}}}
 
             <form class="chat__footer" >
               <button class="chat__footer_button-more">
@@ -130,20 +264,41 @@ export default class Chat extends Block {
                 Выберите чат чтобы отправить сообщение
               </p>
             </div>
-          {{/if}} 
-          
+          {{/if}}
+        </div>
+        
+        <div class="modal" id="chatModal">
+          <div class="modal__content">
+            <p class="h1 modal__title">Добавить новый чат</p>
+            <form id="CreateChatForm" class="modal__form">
+              {{{Input name="title"}}}
+            </form>
+              {{{Button text="Создать" onClick=createChat type="button"}}}
+              {{{Button text="Закрыть" onClick=closeChatModal type="button"}}}
+          </div>
         </div>
 
-        <div class="modal" id="chatModal">
-        <div class="modal__content">
-          <p class="h1 modal__title">Добавить новый чат</p>
-          <form id="CreateChatForm" class="modal__form">
-            {{{Input name="title"}}}
-          </form>
-            {{{Button text="Создать" onClick=createChat type="button"}}}
-            {{{Button text="Закрыть" onClick=closeChatModal type="button"}}}
+        <div class="modal" id="addUserChatModal">
+          <div class="modal__content">
+            <p class="h1 modal__title">Добавить нового пользователя</p>
+            <form id="CreateChatForm" class="modal__form">
+              {{{Input name="addUser"}}}
+            </form>
+            {{{Button text="Добавить" onClick=onAddUser type="button"}}}
+            {{{Button text="Закрыть" onClick=closeAddUserModal type="button"}}}
+          </div>
         </div>
-      </div>
+
+        <div class="modal" id="deleteUserChatModal">
+          <div class="modal__content">
+            <p class="h1 modal__title">Удалить пользователя</p>
+            <form id="CreateChatForm" class="modal__form">
+              {{{Input name="deleteUser"}}}
+            </form>
+            {{{Button text="Удалить" onClick=onDeleteUser type="button"}}}
+            {{{Button text="Закрыть" onClick=closeDeleteUserModal type="button"}}}
+          </div>
+        </div>
       </div>
     `;
   }

@@ -10,7 +10,7 @@ import ProfileInput from "./components/profileInput";
 import Link from "./components/link";
 import ProfileAvatar from "./components/profileAvatar";
 import ChatList from "./components/chatList";
-import ChatMessage from "./components/chatMessage";
+import ChatMessage from "./components/chatMessages";
 
 import NotFound from "./pages/notFound/notFound";
 import ServerError from "./pages/serverError/serverError";
@@ -20,6 +20,7 @@ import Profile from "./pages/profile/profile";
 import ChangeData from "./pages/changeData/changeData";
 import ChangePassword from "./pages/changePassword/changePassword";
 import Chat from "./pages/chat/chat";
+import {apiAuth} from "./api";
 
 registerComponents([
   Button,
@@ -35,10 +36,16 @@ registerComponents([
 document.addEventListener("DOMContentLoaded", () => {
   console.log("rerender");
   const router = new Router("#app");
-  const store = new Store({ currentUser: null, chats: [] });
+  const store = new Store({ currentUser: null, currentChat: null, chats: [], messages: [] });
 
   window.router = router;
   window.store = store;
+
+  apiAuth.getUser().then(data => {
+    window.store.dispatch({
+      currentUser: JSON.parse(data.response),
+    });
+  })
 
   router
     .use("/404", NotFound)

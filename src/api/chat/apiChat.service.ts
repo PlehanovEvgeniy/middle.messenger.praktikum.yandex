@@ -12,10 +12,12 @@ class ApiChatService {
     return ApiInstance.get(`chats/${id}/users`);
   }
 
-  chatToken(id: number): Promise<XMLHttpRequest> {
-    return ApiInstance.post(`chats/token/${id}`, {
+  async chatToken(id: number): Promise<string> {
+    const data = await ApiInstance.post(`chats/token/${id}`, {
       data: { id },
     });
+
+    return JSON.parse(data.response).token;
   }
 
   createChat(data: CreateChat): Promise<XMLHttpRequest> {

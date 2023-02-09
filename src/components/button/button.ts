@@ -22,7 +22,13 @@ export class Button extends Block<ButtonProps> {
   protected render(): string {
     return `
     <div id="button">
-      <button type='{{type}}' class="{{className}}">{{text}}</button>
+      <button type='{{type}}' class="{{className}}">
+        {{#if @partial-block}}
+          {{> @partial-block }}
+        {{else}}
+          {{text}}
+        {{/if}}
+      </button>
     </div>`;
   }
 }
