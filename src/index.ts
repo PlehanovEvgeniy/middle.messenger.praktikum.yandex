@@ -34,7 +34,6 @@ registerComponents([
 ]);
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("rerender");
   const router = new Router("#app");
   const store = new Store({
     currentUser: null,
