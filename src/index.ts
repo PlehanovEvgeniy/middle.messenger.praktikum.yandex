@@ -1,8 +1,8 @@
 import "./assets/styles/global.less";
 import "./assets/styles/normalize.less";
 import { registerComponents } from "./helpers";
-import { Router } from "./services/router";
-import { Store } from "./services/store";
+import { Router, Store } from "./services";
+
 import Button from "./components/button";
 import NavLink from "./components/navLink";
 import Input from "./components/input";
@@ -20,7 +20,7 @@ import Profile from "./pages/profile/profile";
 import ChangeData from "./pages/changeData/changeData";
 import ChangePassword from "./pages/changePassword/changePassword";
 import Chat from "./pages/chat/chat";
-import {apiAuth} from "./api";
+import { apiAuth } from "./api";
 
 registerComponents([
   Button,
@@ -36,16 +36,21 @@ registerComponents([
 document.addEventListener("DOMContentLoaded", () => {
   console.log("rerender");
   const router = new Router("#app");
-  const store = new Store({ currentUser: null, currentChat: null, chats: [], messages: [] });
+  const store = new Store({
+    currentUser: null,
+    currentChat: null,
+    chats: [],
+    messages: [],
+  });
 
   window.router = router;
   window.store = store;
 
-  apiAuth.getUser().then(data => {
+  apiAuth.getUser().then((data) => {
     window.store.dispatch({
       currentUser: JSON.parse(data.response),
     });
-  })
+  });
 
   router
     .use("/404", NotFound)
