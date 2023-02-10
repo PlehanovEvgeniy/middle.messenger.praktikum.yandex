@@ -33,7 +33,7 @@ export class Input extends Block<InputProps> {
         blur: () => {
           if (props.validation) {
             this.errors = formValidation[props.validation](this.value);
-            this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+            setTimeout(() => this.eventBus().emit(Block.EVENTS.FLOW_RENDER), 0);
           }
         },
       },

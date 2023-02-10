@@ -45,12 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.router = router;
   window.store = store;
 
-  apiAuth.getUser().then((data) => {
-    window.store.dispatch({
-      currentUser: JSON.parse(data.response),
-    });
-  });
-
   router
     .use("/404", NotFound)
     .use("/500", ServerError)
@@ -61,4 +55,15 @@ document.addEventListener("DOMContentLoaded", () => {
     .use("/changePassword", ChangePassword)
     .use("/messenger", Chat)
     .start();
+
+  apiAuth.getUser().then((data) => {
+    if (data.status === 401) {
+      window.router.go("/");
+      return;
+    }
+    window.store.dispatch({
+      currentUser: JSON.parse(data.response),
+    });
+    window.router.go("/messenger");
+  });
 });
