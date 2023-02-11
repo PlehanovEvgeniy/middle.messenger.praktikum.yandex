@@ -72,6 +72,7 @@ export default class Chat extends Block {
       addChat: onAddChat,
       createChat: onCreateChat,
       closeChatModal: onCloseChatModal,
+      moreIcon: `<img src=${moreSvg} />`,
       onSelectChat,
       showMoreMenu: () => this.showMoreMenu(),
       onDeleteChat: () => this.onDeleteChat(),
@@ -192,7 +193,7 @@ export default class Chat extends Block {
     return `
       <div id="chat" class="chat">
         <div class="chat__sidebar">
-          {{{ Link href='/profile' className='chat__sidebar_link' text="Профиль" }}}
+          {{{ Link href='/settings' className='chat__sidebar_link' text="Профиль" }}}
 
           <form class="chat__sidebar_search">
             {{{ Input className="chat__sidebar_search-input" type="text" placeholder="Поиск" fullWidth="true" }}}
@@ -212,13 +213,11 @@ export default class Chat extends Block {
               <div class="chat__block_header-info">
                 <div class="chat__block_header-info_img"></div>
                   <p class="chat__block_header-info_title">
-                      {{currentChat.title}}
+                    {{currentChat.title}}
                   </p>
                 </div>
                 
-                {{#Button type="button" className="chat__block_header-more" onClick=showMoreMenu  text="кнопка, не знаю как прокинуть чилдрен в хендлбарс"}}
-                  <img src=${moreSvg} />
-                {{/Button}}
+                {{{ Button type="button" className="chat__block_header-more" onClick=showMoreMenu node=moreIcon}}}
                 
                 <div id="chatDropdown" class="chat__block_header__links">
                   <ul class="chat__block_header__links-list">

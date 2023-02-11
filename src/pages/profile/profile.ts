@@ -17,6 +17,7 @@ export default class Profile extends Block {
 
     super({
       ...currentUser,
+      backIcon: `<img src=${backArrowSvg} alt="Назад">`,
       onLogout,
     });
   }
@@ -26,8 +27,7 @@ export default class Profile extends Block {
       <div class="profile">
         <div class="profile__back">
           <div class="profile__back_icon">
-            <img src=${backArrowSvg} alt="Назад"> 
-            {{{ Link href="/chat" className="profile__back_btn" }}}
+            {{{ Link href="/messenger" className="profile__back_btn" node=backIcon }}}
           </div>
         </div>
 
@@ -45,8 +45,8 @@ export default class Profile extends Block {
           </form>
 
           <div class="profile__container_data">
-            {{{ Link href="/settings" className="profile__container_data-link" text="Изменить данные" }}}
-            {{{ Link href="/changePassword" className="profile__container_data-link" text="Изменить пароль" }}}
+            {{{ Link href="/settings/edit" className="profile__container_data-link" text="Изменить данные" }}}
+            {{{ Link href="/settings/editPassword" className="profile__container_data-link" text="Изменить пароль" }}}
             {{{ Button type="button" className="profile__container_data-logout" text="Выйти" onClick=onLogout }}}
           </div>
         </div>

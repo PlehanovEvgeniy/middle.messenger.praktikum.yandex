@@ -45,7 +45,7 @@ export default class ChangeData extends Block {
 
         window.store.dispatch({ currentUser: JSON.parse(updateUser.response) });
 
-        window.router.go("/profile");
+        window.router.go("/settings");
       } catch (error) {
         console.log(error);
       }
@@ -53,6 +53,7 @@ export default class ChangeData extends Block {
 
     super({
       ...currentUser,
+      backIcon: `<img src=${backArrowSvg} alt="Назад">`,
       events: {
         submit: onSubmit,
       },
@@ -64,9 +65,7 @@ export default class ChangeData extends Block {
       <form class="profile">
         <div class="profile__back">
           <div class="profile__back_icon">
-          {{{ Link href="/chat" }}}
-            <img src=${backArrowSvg} alt="Назад">
-            </a>
+            {{{ Link href="/settings" className="profile__back_btn" node=backIcon }}}
           </div>
         </div>
         <div class="profile__container">

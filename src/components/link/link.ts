@@ -4,6 +4,7 @@ interface LinkProps extends BlockProps {
   text: string;
   href: string;
   className?: string;
+  node?: string;
 }
 
 export class Link extends Block<LinkProps> {
@@ -25,7 +26,13 @@ export class Link extends Block<LinkProps> {
 
   protected render(): string {
     return `
-      <a href="javascript:void(0);" class="{{className}}" click>{{text}}</a>
+      <a href="javascript:void(0);" class="{{className}}" click> 
+        {{#if node}}
+          {{{node}}}
+        {{else}}
+          {{text}}
+        {{/if}}
+      </a>
     `;
   }
 }

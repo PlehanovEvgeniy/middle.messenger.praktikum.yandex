@@ -5,6 +5,7 @@ interface ButtonProps extends BlockProps {
   text: string;
   type: "submit" | "button";
   className?: string;
+  node?: string;
   onClick?: () => void;
 }
 
@@ -21,14 +22,13 @@ export class Button extends Block<ButtonProps> {
 
   protected render(): string {
     return `
-    <div id="button">
       <button type='{{type}}' class="{{className}}">
-        {{#if @partial-block}}
-          {{> @partial-block }}
+        {{#if node}}
+          {{{node}}}
         {{else}}
           {{text}}
         {{/if}}
       </button>
-    </div>`;
+      `;
   }
 }

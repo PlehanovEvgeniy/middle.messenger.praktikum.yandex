@@ -36,6 +36,7 @@ export default class ChangePassword extends Block {
 
     super({
       ...currentUser,
+      backIcon: `<img src=${backArrowSvg} alt="Назад">`,
       events: {
         submit: onSubmit,
       },
@@ -47,9 +48,7 @@ export default class ChangePassword extends Block {
       <form class="profile">
         <div class="profile__back">
           <div class="profile__back_icon">
-          {{{ Link href="/chat" }}}
-              <img src=${backArrowSvg} alt="Назад">
-            </a>
+            {{{ Link href="/settings" className="profile__back_btn" node=backIcon }}}
           </div>
         </div>
 

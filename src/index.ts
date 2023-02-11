@@ -33,7 +33,7 @@ registerComponents([
   ChatMessage,
 ]);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const router = new Router("#app");
   const store = new Store({
     currentUser: null,
@@ -45,25 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
   window.router = router;
   window.store = store;
 
+  const data = await apiAuth.getUser();
+
+  if (data.status === 200) {
+    window.store.dispatch({
+      currentUser: JSON.parse(data.response),
+    });
+  }
+
   router
     .use("/404", NotFound)
     .use("/500", ServerError)
     .use("/", Login)
     .use("/sign-up", Registration)
-    .use("/profile", Profile)
-    .use("/settings", ChangeData)
-    .use("/changePassword", ChangePassword)
+    .use("/settings", Profile)
+    .use("/settings/edit", ChangeData)
+    .use("/settings/editPassword", ChangePassword)
     .use("/messenger", Chat)
     .start();
 
-  apiAuth.getUser().then((data) => {
-    if (data.status === 401) {
-      window.router.go("/");
-      return;
-    }
-    window.store.dispatch({
-      currentUser: JSON.parse(data.response),
-    });
-    window.router.go("/messenger");
-  });
+  if (data.status === 401) {
+    window.router.go("/");
+    return;
+  }
 });

@@ -50,16 +50,16 @@ export class Router {
     window.onpopstate = (event) => {
       event.currentTarget &&
         // @ts-ignore
-        this._onRoute(event.currentTarget.location.pathname);
+        this.go(event.currentTarget.location.pathname);
     };
 
-    this._onRoute(window.location.pathname);
+    this.go(window.location.pathname);
   }
 
   go(pathname: string) {
-    // if (!window.store.state.user) {
-    //   pathname = "/";
-    // }
+    if (window.store.state.currentUser && pathname === "/") {
+      pathname = "/messenger";
+    }
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
