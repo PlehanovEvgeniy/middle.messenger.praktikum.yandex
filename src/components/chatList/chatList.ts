@@ -28,7 +28,7 @@ export class ChatList extends Block<ChatListProps> {
           <div class="chat__container_left">
             <div class="chat__container_left-avatar">
               {{#if avatar}}
-                <img class="chat__container_left-avatar-img" src="https://ya-praktikum.tech/api/v2/resources{{avatar}} />
+                <img class="chat__container_left-avatar-img" src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" />
               {{/if}}
             </div>
             <div class="chat__container_left-content">
