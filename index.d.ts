@@ -1,2 +1,10 @@
-declare module '*.png'
-declare module '*.svg'
+declare module "*.png";
+declare module "*.svg";
+declare global {
+  export interface Window {
+    router: Router;
+    store: Store;
+  }
+}
+
+export {};

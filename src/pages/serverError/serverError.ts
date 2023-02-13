@@ -8,7 +8,7 @@ export default class ServerError extends Block {
         <h1 class="error__title">500</h1>
         <h3 class="error__subtitle">Мы уже фиксим</h3>
 
-        {{{ NavLink href="./chat.hbs" text="Назад к чатам" }}}
+        {{{ Link href="/chat" text="Назад к чатам" }}}
       </div>    
     `;
   }

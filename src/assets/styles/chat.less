@@ -8,6 +8,22 @@
   min-height: 100vh;
   position: relative;
 
+  &__btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    color: @color-white;
+    background-color: @color-blue;
+
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+
+    cursor: pointer;
+  }
+
   &__container {
     display: flex;
     flex-direction: row;
@@ -27,6 +43,13 @@
         height: 47px;
         border-radius: 50%;
         background-color: @color-dark-grey;
+
+        &-img {
+          width: 47px;
+          height: 47px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
       }
 
       &-content {
@@ -143,8 +166,8 @@
     position: relative;
 
     &_empty-space {
+      display: flex;
       height: 100%;
-      display: none;
       justify-content: center;
       align-items: center;
 
@@ -156,12 +179,64 @@
     }
 
     &_header {
+      position: relative;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
       padding: 10px 0;
       max-height: 54px;
       border-bottom: 1px solid @color-very-light-gray;
+
+      &__links {
+        position: absolute;
+        z-index: 100;
+        background-color: @color-white;
+        padding: 10px;
+        min-width: 212px;
+        right: -16px;
+        top: calc(100% + 8px);
+        border-radius: 6px;
+        display: none;
+        box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+
+        &--active {
+          display: block;
+        }
+      }
+
+      &__links-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      &__links-item {
+        margin-bottom: 10px;
+
+        &:last-of-type {
+          margin-bottom: unset;
+        }
+      }
+
+      &__link {
+        color: var(--blue);
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 11px;
+        border: none;
+        background-color: inherit;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          opacity: 0.6;
+        }
+
+        &:active {
+          opacity: 0.4;
+        }
+      }
 
       &-info {
         display: flex;
@@ -186,6 +261,7 @@
 
       &-more {
         width: 20px;
+        height: 20px;
         cursor: pointer;
         display: flex;
         justify-content: center;
@@ -204,11 +280,14 @@
     gap: 10px;
     list-style: none;
     padding: 0;
+    overflow: auto;
+    height: calc(100vh - 60px - 80px);
 
-    &_message-container {
+    &_message-content {
       display: flex;
+      min-width: 100px;
       max-width: 402px;
-      padding: 11px;
+      padding: 11px 11px 25px 11px;
       background-color: @color-message-container;
       font-weight: 500;
       font-size: 12px;
@@ -216,6 +295,10 @@
       color: @color-black;
       border-radius: 10px;
       position: relative;
+
+      &-me {
+        justify-content: flex-end;
+      }
 
       &_text {
         margin: 0;
@@ -229,6 +312,14 @@
         position: absolute;
         right: 11px;
         bottom: 11px;
+      }
+    }
+
+    &_message-container {
+      display: flex;
+
+      &_me {
+        justify-content: flex-end;
       }
     }
   }

@@ -67,7 +67,9 @@ export function messageValidation() {
   }
 }
 
-export const formValidation: {[key in string]: (value: unknown) => string | undefined} = {
+export const formValidation: {
+  [key in string]: (value: unknown) => string | undefined;
+} = {
   login: loginValidation,
   password: passwordValidation,
   newPassword: passwordValidation,
@@ -83,7 +85,9 @@ export const formValidation: {[key in string]: (value: unknown) => string | unde
 export function onSubmitValidation(
   formData: Record<string, string | number>,
   children: Record<string, Block>
-) {
+): boolean {
+  let errorCount = 0;
+
   for (const formDataKey in formData) {
     const component = Object.entries(children).find(([_, component]) => {
       return (
@@ -96,8 +100,14 @@ export function onSubmitValidation(
       const [_, child] = component;
       const errors = formValidation[formDataKey](formData[formDataKey]);
 
+      if (errors) {
+        errorCount++;
+      }
+
       child.errors = errors;
       child.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
+
+  return !!errorCount;
 }

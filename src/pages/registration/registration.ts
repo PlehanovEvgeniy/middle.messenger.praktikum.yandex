@@ -2,15 +2,40 @@ import "../../assets/styles/authForm.less";
 import { Block } from "../../modules";
 import { getFormValues } from "../../helpers";
 import { onSubmitValidation } from "../../helpers/validation";
+import { apiAuth } from "../../api";
 
 export default class Registration extends Block {
   constructor() {
-    const onSubmit = (event: Event) => {
+    const onSubmit = async (event: Event) => {
       event.preventDefault();
 
       const values = getFormValues();
-      onSubmitValidation(values, this.children);
-      console.log("registration", values);
+      const hasError = onSubmitValidation(values, this.children);
+
+      if (hasError) {
+        return;
+      }
+
+      try {
+        await apiAuth.registation({
+          first_name: values.first_name,
+          second_name: values.second_name,
+          login: values.login,
+          email: values.email,
+          password: values.password,
+          phone: values.phone,
+        });
+
+        const responseUser = await apiAuth.getUser();
+
+        window.store.dispatch({
+          currentUser: JSON.parse(responseUser.response),
+        });
+
+        window.router.go("/messenger");
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     super({
@@ -37,7 +62,7 @@ export default class Registration extends Block {
 
         <div class="auth__form_buttons">
           {{{ Button type="submit" text="Зарегистрироваться" }}}
-          {{{ NavLink href='#login' text="Войти" }}}
+          {{{ Link href="/" text="Войти" }}}
         </div>
 
       </form>

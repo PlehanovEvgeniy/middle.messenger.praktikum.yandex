@@ -2,21 +2,41 @@ import "../../assets/styles/profile.less";
 import { Block } from "../../modules";
 import { getFormValues } from "../../helpers";
 import { onSubmitValidation } from "../../helpers/validation";
+import { ApiUser } from "../../api";
 
 import * as backArrowSvg from "../../assets/images/back-arrow.svg";
-import * as profilePng from "../../assets/images/profile.png";
 
 export default class ChangePassword extends Block {
   constructor() {
-    const onSubmit = (event: Event) => {
+    const { currentUser } = window.store.state;
+
+    const onSubmit = async (event: Event) => {
       event.preventDefault();
 
       const values = getFormValues();
-      onSubmitValidation(values, this.children);
-      console.log("changePassword", values);
+      const hasError = onSubmitValidation(values, this.children);
+
+      if (hasError) {
+        return;
+      }
+
+      try {
+        const changePassword = await ApiUser.updateUserPassword({
+          newPassword: values.newPassword,
+          oldPassword: values.oldPassword,
+        });
+
+        window.store.dispatch({
+          currentUser: JSON.parse(changePassword.response),
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     super({
+      ...currentUser,
+      backIcon: `<img src=${backArrowSvg} alt="Назад">`,
       events: {
         submit: onSubmit,
       },
@@ -28,16 +48,12 @@ export default class ChangePassword extends Block {
       <form class="profile">
         <div class="profile__back">
           <div class="profile__back_icon">
-            <a href="./chat.hbs">
-              <img src=${backArrowSvg} alt="Назад">
-            </a>
+            {{{ Link href="/settings" className="profile__back_btn" node=backIcon }}}
           </div>
         </div>
 
         <div class="profile__container">
-          <div class="profile__container_avatar">
-            <img src=${profilePng} alt="Профиль">
-          </div>
+          {{{ ProfileAvatar src=avatar }}}
 
           <div class="profile__container_password">
             {{{ ProfileInput type='password' name='oldPassword' label='Старый пароль' placeholder='•••••••••' validation="oldPassword" }}}
