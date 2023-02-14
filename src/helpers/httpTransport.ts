@@ -14,34 +14,38 @@ type Options = {
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export class HTTPTransport {
-  constructor(private baseUrl: string) {}
+  private baseUrl: string;
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
 
   get(
     url: string,
     options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.GET });
+    return this.request(url, {...options, method: METHOD.GET});
   }
 
   post(
     url: string,
     options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.POST });
+    return this.request(url, {...options, method: METHOD.POST});
   }
 
   put(
     url: string,
     options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PUT });
+    return this.request(url, {...options, method: METHOD.PUT});
   }
 
   delete(
     url: string,
     options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.DELETE });
+    return this.request(url, {...options, method: METHOD.DELETE});
   }
 
   private queryStringify(data: Record<string, any>) {
@@ -53,9 +57,9 @@ export class HTTPTransport {
 
   request(
     url: string,
-    options: Options = { method: METHOD.GET },
+    options: Options = {method: METHOD.GET},
   ): Promise<XMLHttpRequest> {
-    const { headers = {}, method, data } = options;
+    const {headers = {}, method, data} = options;
     if (
       !headers['content-type']
       && !(data && data instanceof window.FormData)
@@ -68,7 +72,6 @@ export class HTTPTransport {
       const currentUrl = `${this.baseUrl}${url}`;
       xhr.withCredentials = true;
       xhr.timeout = 500000;
-      // xhr.setRequestHeader('access-control-allow-origin', "*")
       xhr.open(
         method,
         method === METHOD.GET && data

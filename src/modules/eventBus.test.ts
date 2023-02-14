@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import EventBus from './EventBus';
+import EventBus from './eventBus';
 
 describe('EventBus', () => {
   let bus: EventBus<'event1' | 'event2', { event1: [string], event2: [number] }>;

@@ -16,13 +16,6 @@
       "dom"
     ]
   },
-  "ts-node": {
-    "esm": true,
-    "compilerOptions": {
-      "module": "CommonJS",
-      "moduleResolution": "node"
-    }
-  },
   "exclude": [
     "node_modules",
   ],

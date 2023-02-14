@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Route } from './route';
+import { Route } from './Route';
 
 class View {
   show() {}
