@@ -1,1 +1,1 @@
-import { default as ChangePassword } from "./changePassword";
+import { default as ChangePassword } from './changePassword';

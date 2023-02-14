@@ -1,4 +1,4 @@
-import EventBus from "../../modules/eventBus";
+import EventBus from '../../modules/eventBus';
 
 export class Store extends EventBus {
   constructor(initionalState: any) {
@@ -17,6 +17,6 @@ export class Store extends EventBus {
     const prevState = this._state;
     this._state = { ...this._state, ...newState };
 
-    this.emit("changed", prevState, this._state);
+    this.emit('changed', prevState, this._state);
   }
 }

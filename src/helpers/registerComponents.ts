@@ -1,19 +1,19 @@
-import Block from "../modules/block";
-import Handlebars, { HelperOptions } from "handlebars";
+import Handlebars, { HelperOptions } from 'handlebars';
+import Block from '../modules/block';
 
 interface registerComponentProps<Props = any> {
   new (props: Props): Block;
 }
 
 export default function registerComponents(
-  components: registerComponentProps[]
+  components: registerComponentProps[],
 ) {
   components.forEach((component) => {
     Handlebars.registerHelper(
-      //@ts-ignore
-      component["componentName"] || component.name,
+      // @ts-ignore
+      component.componentName || component.name,
 
-      function ({ hash: { ref, ...hash }, data }: HelperOptions) {
+      ({ hash: { ref, ...hash }, data }: HelperOptions) => {
         const { children = {}, refs = {} } = data.root;
 
         const comp = new component(hash);
@@ -25,7 +25,7 @@ export default function registerComponents(
         }
 
         return `<div data-id="${comp.id}"></div>`;
-      }
+      },
     );
   });
 }

@@ -1,3 +1,12 @@
+export interface ChatUser {
+  first_name: string;
+  second_name: string;
+  avatar: string;
+  email: string;
+  login: string;
+  phone: string;
+}
+
 export interface Chat {
   id: number;
   title: string;
@@ -8,15 +17,6 @@ export interface Chat {
     time: string;
     content: string;
   };
-}
-
-export interface ChatUser {
-  first_name: string;
-  second_name: string;
-  avatar: string;
-  email: string;
-  login: string;
-  phone: string;
 }
 
 export interface CreateChat {

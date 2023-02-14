@@ -1,22 +1,22 @@
 const MONTHS: string[] = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 const dateFormatting = (date: string) => {
   let transformDate;
 
-  if (!!date) {
+  if (date) {
     const newDate = new Date(date);
 
     const hours = newDate.getHours();
@@ -27,7 +27,7 @@ const dateFormatting = (date: string) => {
 
     transformDate = `${hours}:${minutes} ${day} ${MONTHS[month]} ${year}`;
   } else {
-    transformDate = "";
+    transformDate = '';
   }
 
   return transformDate;

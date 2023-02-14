@@ -1,2 +1,2 @@
-export * from "./apiUser.model";
-export * from "./apiUser.service";
+export * from './apiUser.model';
+export * from './apiUser.service';

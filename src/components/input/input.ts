@@ -1,11 +1,11 @@
-import "./input.less";
-import { Block, BlockProps } from "../../modules";
-import { formValidation } from "../../helpers/validation";
+import './input.less';
+import { Block, BlockProps } from '../../modules';
+import { formValidation } from '../../helpers/validation';
 
 interface InputProps extends BlockProps {
   name: string;
   label?: string;
-  type?: "text" | "email" | "password" | "tel" | "file";
+  type?: 'text' | 'email' | 'password' | 'tel' | 'file';
   placeholder?: string;
   validation?: string;
   className?: string;
@@ -13,13 +13,14 @@ interface InputProps extends BlockProps {
 }
 
 export class Input extends Block<InputProps> {
-  static componentName = "Input";
-  private value: string | undefined = "";
+  static componentName = 'Input';
+
+  private value: string | undefined = '';
 
   constructor(props: InputProps) {
     super({
       ...props,
-      className: props.className ? props.className : "form__input",
+      className: props.className ? props.className : 'form__input',
       events: {
         change: (e: Event) => {
           this.value = (e.target as HTMLInputElement).value;
@@ -28,7 +29,7 @@ export class Input extends Block<InputProps> {
           });
         },
         focus: () => {
-          this.errors = "";
+          this.errors = '';
         },
         blur: () => {
           if (props.validation) {
@@ -53,7 +54,7 @@ export class Input extends Block<InputProps> {
         />
 
         <div class="form__input_error">
-          ${this.errors ? this.errors.toString() : ""}
+          ${this.errors ? this.errors.toString() : ''}
         </div>
       </div>
     `;

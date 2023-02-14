@@ -1,12 +1,12 @@
-import "../../assets/styles/chat.less";
-import { Block } from "../../modules";
-import { getFormValues, messages } from "../../helpers";
-import { onSubmitValidation } from "../../helpers/validation";
-import { apiChat } from "../../api";
+import '../../assets/styles/chat.less';
+import { Block } from '../../modules';
+import { getFormValues, messages } from '../../helpers';
+import { onSubmitValidation } from '../../helpers/validation';
+import { apiChat } from '../../api';
 
-import * as moreSvg from "../../assets/images/more.svg";
-import * as clipSvg from "../../assets/images/clip.svg";
-import * as rightArrowSvg from "../../assets/images/right-arrow.svg";
+import moreSvg from '../../assets/images/more.svg';
+import clipSvg from '../../assets/images/clip.svg';
+import rightArrowSvg from '../../assets/images/right-arrow.svg';
 
 export default class Chat extends Block {
   constructor() {
@@ -55,7 +55,7 @@ export default class Chat extends Block {
       window.store.dispatch({ currentChat: chat });
 
       await messages.connect(id);
-      window.store.on("changed", (prevState: any, newState: any) => {
+      window.store.on('changed', (prevState: any, newState: any) => {
         if (newState.messages && newState.messages.length) {
           this.setProps({
             ...this.props,
@@ -72,7 +72,7 @@ export default class Chat extends Block {
       addChat: onAddChat,
       createChat: onCreateChat,
       closeChatModal: onCloseChatModal,
-      moreIcon: `<img src=${moreSvg} />`,
+      moreIcon: `<img src=${moreSvg} alt="Больше" />`,
       onSelectChat,
       showMoreMenu: () => this.showMoreMenu(),
       onDeleteChat: () => this.onDeleteChat(),
@@ -87,7 +87,7 @@ export default class Chat extends Block {
       },
     });
 
-    document.addEventListener("keydown", this.onKeyDown.bind(this));
+    document.addEventListener('keydown', this.onKeyDown.bind(this));
   }
 
   async getChats() {
@@ -102,8 +102,8 @@ export default class Chat extends Block {
   }
 
   showMoreMenu() {
-    const menu = document.getElementById("chatDropdown");
-    menu?.classList.toggle("chat__block_header__links--active");
+    const menu = document.getElementById('chatDropdown');
+    menu?.classList.toggle('chat__block_header__links--active');
   }
 
   async onAddUser() {
@@ -111,7 +111,7 @@ export default class Chat extends Block {
     const chatId = window.store.state.currentChat.id;
 
     await apiChat.addUsersToChat({
-      chatId: chatId,
+      chatId,
       users: [Number(values.addUser)],
     });
 
@@ -123,7 +123,7 @@ export default class Chat extends Block {
     const chatId = window.store.state.currentChat.id;
 
     await apiChat.deleteUsersFromChat({
-      chatId: chatId,
+      chatId,
       users: [Number(values.addUser)],
     });
 
@@ -144,7 +144,7 @@ export default class Chat extends Block {
   }
 
   onKeyDown(event: any) {
-    if (event.code === "Escape") {
+    if (event.code === 'Escape') {
       this.setProps({
         ...this.props,
         currentChat: null,
@@ -160,33 +160,33 @@ export default class Chat extends Block {
   }
 
   openChatModal() {
-    const chatModal = document.getElementById("chatModal");
-    chatModal?.classList.add("modal-open");
+    const chatModal = document.getElementById('chatModal');
+    chatModal?.classList.add('modal-open');
   }
 
   closeChatModal() {
-    const chatModal = document.getElementById("chatModal");
-    chatModal?.classList.remove("modal-open");
+    const chatModal = document.getElementById('chatModal');
+    chatModal?.classList.remove('modal-open');
   }
 
   openAddUserModal() {
-    const chatModal = document.getElementById("addUserChatModal");
-    chatModal?.classList.add("modal-open");
+    const chatModal = document.getElementById('addUserChatModal');
+    chatModal?.classList.add('modal-open');
   }
 
   closeAddUserModal() {
-    const chatModal = document.getElementById("addUserChatModal");
-    chatModal?.classList.remove("modal-open");
+    const chatModal = document.getElementById('addUserChatModal');
+    chatModal?.classList.remove('modal-open');
   }
 
   openDeleteUserModal() {
-    const chatModal = document.getElementById("deleteUserChatModal");
-    chatModal?.classList.add("modal-open");
+    const chatModal = document.getElementById('deleteUserChatModal');
+    chatModal?.classList.add('modal-open');
   }
 
   closeDeleteUserModal() {
-    const chatModal = document.getElementById("deleteUserChatModal");
-    chatModal?.classList.remove("modal-open");
+    const chatModal = document.getElementById('deleteUserChatModal');
+    chatModal?.classList.remove('modal-open');
   }
 
   protected render(): string {

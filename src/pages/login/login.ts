@@ -1,8 +1,8 @@
-import "../../assets/styles/authForm.less";
-import { Block } from "../../modules";
-import { getFormValues } from "../../helpers";
-import { onSubmitValidation } from "../../helpers/validation";
-import { apiAuth } from "../../api";
+import '../../assets/styles/authForm.less';
+import { Block } from '../../modules';
+import { getFormValues } from '../../helpers';
+import { onSubmitValidation } from '../../helpers/validation';
+import { apiAuth } from '../../api';
 
 export default class Login extends Block {
   constructor() {
@@ -25,7 +25,7 @@ export default class Login extends Block {
           currentUser: JSON.parse(responseUser.response),
         });
 
-        window.router.go("/messenger");
+        window.router.go('/messenger');
       } catch (error) {
         console.log(error);
       }

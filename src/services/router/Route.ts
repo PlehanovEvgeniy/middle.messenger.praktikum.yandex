@@ -1,11 +1,14 @@
-import Block from "../../modules/block";
-import { isEqual } from "../../utils/isEqual";
-import { render } from "../../utils/render";
+import Block from '../../modules/block';
+import { isEqual } from '../../utils/isEqual';
+import { render } from '../../utils/render';
 
 export class Route {
   _pathname: string;
+
   _blockClass: any;
+
   _block: Block | null;
+
   _props: {
     rootQuery: string;
   };
@@ -15,7 +18,7 @@ export class Route {
     view: any,
     props: {
       rootQuery: string;
-    }
+    },
   ) {
     this._pathname = pathname;
     this._blockClass = view;

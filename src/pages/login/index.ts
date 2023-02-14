@@ -1,1 +1,1 @@
-import { default as Login } from "./login";
+import { default as Login } from './login';

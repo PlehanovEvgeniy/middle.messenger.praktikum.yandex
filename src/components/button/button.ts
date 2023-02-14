@@ -1,21 +1,21 @@
-import "./button.less";
-import { Block, BlockProps } from "../../modules";
+import './button.less';
+import { Block, BlockProps } from '../../modules';
 
 interface ButtonProps extends BlockProps {
   text: string;
-  type: "submit" | "button";
+  type: 'submit' | 'button';
   className?: string;
   node?: string;
   onClick?: () => void;
 }
 
 export class Button extends Block<ButtonProps> {
-  static componentName = "Button";
+  static componentName = 'Button';
 
   constructor({ onClick, ...props }: ButtonProps) {
     super({
       ...props,
-      className: props.className ?? "button",
+      className: props.className ?? 'button',
       events: { click: onClick },
     });
   }

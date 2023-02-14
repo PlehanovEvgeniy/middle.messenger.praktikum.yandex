@@ -1,7 +1,9 @@
-import { Block, BlockProps } from "../../modules";
+/// <reference path='../../types/global.d.ts'/>
+import { Block, BlockProps } from '../../modules';
 
-import * as camera from "../../assets/images/camera-white.png";
-import * as defaultAvatar from "../../assets/images/pepe.png";
+import camera from '../../assets/images/camera-white.png';
+
+import defaultAvatar from '../../assets/images/pepe.png';
 
 interface ProfileAvatarProps extends BlockProps {
   src?: string;
@@ -9,7 +11,8 @@ interface ProfileAvatarProps extends BlockProps {
 }
 
 export class ProfileAvatar extends Block<ProfileAvatarProps> {
-  static componentName = "ProfileAvatar";
+  static componentName = 'ProfileAvatar';
+
   constructor(props: ProfileAvatarProps) {
     super({
       ...props,
@@ -28,6 +31,7 @@ export class ProfileAvatar extends Block<ProfileAvatarProps> {
           {{#if isEditable}}
             <figcaption class="profile__container_avatar-figcaption">
               <img src="${camera}" >
+             {{camera}}
             </figcaption>
           {{/if}}
         </figure>

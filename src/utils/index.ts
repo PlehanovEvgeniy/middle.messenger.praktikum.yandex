@@ -1,2 +1,2 @@
-import { isEqual } from "./isEqual";
-import { render } from "./render";
+import { isEqual } from './isEqual';
+import { render } from './render';

@@ -24,8 +24,8 @@ describe('EventBus', () => {
     let event1Data: string | undefined;
     let event2Data: number | undefined;
 
-    const listener1 = (arg: string) => { event1Data = arg };
-    const listener2 = (arg: number) => { event2Data = arg };
+    const listener1 = (arg: string) => { event1Data = arg; };
+    const listener2 = (arg: number) => { event2Data = arg; };
 
     bus.on('event1', listener1);
     bus.on('event2', listener2);

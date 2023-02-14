@@ -1,1 +1,1 @@
-import { default as NotFound } from "./notFound";
+import { default as NotFound } from './notFound';

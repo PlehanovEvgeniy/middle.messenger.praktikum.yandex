@@ -1,9 +1,12 @@
-import { Route } from "./Route";
+import { Route } from './Route';
 
 export class Router {
   history: History;
+
   routes: Route[];
+
   _currentRoute: Route | null;
+
   _rootQuery: string;
 
   private static __instance: Router;
@@ -48,19 +51,19 @@ export class Router {
 
   start() {
     window.onpopstate = (event) => {
-      event.currentTarget &&
+      event.currentTarget
         // @ts-ignore
-        this.go(event.currentTarget.location.pathname);
+        && this.go(event.currentTarget.location.pathname);
     };
 
     this.go(window.location.pathname);
   }
 
   go(pathname: string) {
-    if (window.store.state.currentUser && pathname === "/") {
-      pathname = "/messenger";
+    if (window.store.state.currentUser && pathname === '/') {
+      pathname = '/messenger';
     }
-    this.history.pushState({}, "", pathname);
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 

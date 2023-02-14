@@ -1,5 +1,5 @@
 export default function getFormValues() {
-  const fields = document.querySelectorAll("input");
+  const fields = document.querySelectorAll('input');
   const values: Record<string, string> = {};
 
   fields.forEach((field) => {

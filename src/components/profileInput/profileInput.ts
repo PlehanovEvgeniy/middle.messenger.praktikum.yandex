@@ -1,20 +1,21 @@
-import "./profileInput.less";
-import { Block, BlockProps } from "../../modules";
-import { formValidation } from "../../helpers/validation";
+import './profileInput.less';
+import { Block, BlockProps } from '../../modules';
+import { formValidation } from '../../helpers/validation';
 
 interface ProfileInputProps extends BlockProps {
   name: string;
   label?: string;
   validation?: string;
-  type?: "text" | "email" | "password" | "tel" | "file";
+  type?: 'text' | 'email' | 'password' | 'tel' | 'file';
   placeholder?: string;
   disabled?: boolean;
   value?: string;
 }
 
 export class ProfileInput extends Block<ProfileInputProps> {
-  static componentName = "ProfileInput";
-  private value: string | undefined = "";
+  static componentName = 'ProfileInput';
+
+  private value: string | undefined = '';
 
   constructor(props: ProfileInputProps) {
     super({
@@ -28,7 +29,7 @@ export class ProfileInput extends Block<ProfileInputProps> {
           });
         },
         focus: () => {
-          this.errors = "";
+          this.errors = '';
         },
         blur: () => {
           if (props.validation) {
@@ -46,7 +47,7 @@ export class ProfileInput extends Block<ProfileInputProps> {
       <div class="profile-form">
         <label class="profile-form__label" for={{name}}>{{label}}</label>
         <div class="profile-form__input_error">
-        ${this.errors ? this.errors.toString() : ""}
+        ${this.errors ? this.errors.toString() : ''}
       </div>
         <input
           class="profile-form__input"

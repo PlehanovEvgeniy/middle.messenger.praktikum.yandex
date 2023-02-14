@@ -1,6 +1,6 @@
-import EventBus, { Listener } from "./eventBus";
-import { nanoid } from "nanoid";
-import Handlebars from "handlebars";
+import { nanoid } from 'nanoid';
+import Handlebars from 'handlebars';
+import EventBus, { Listener } from './eventBus';
 
 type Nullable<T> = T | null;
 type Keys<T extends Record<string, unknown>> = keyof T;
@@ -13,22 +13,26 @@ export interface BlockProps {
 
 export default class Block<P = BlockProps> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   } as const;
 
   public id = nanoid(6);
-  public errors: string | undefined = "";
+
+  public errors: string | undefined = '';
 
   protected _element: Nullable<HTMLElement> = null;
+
   protected readonly props: P;
+
   protected children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
+
   protected refs: { [key: string]: HTMLElement } = {};
 
   public constructor(props?: P) {
@@ -52,17 +56,17 @@ export default class Block<P = BlockProps> {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(
       Block.EVENTS.FLOW_CDM,
-      this._componentDidMount.bind(this) as Listener<unknown[]>
+      this._componentDidMount.bind(this) as Listener<unknown[]>,
     );
     eventBus.on(
       Block.EVENTS.FLOW_CDU,
-      this._componentDidUpdate.bind(this) as Listener<unknown[]>
+      this._componentDidUpdate.bind(this) as Listener<unknown[]>,
     );
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
   _createResources() {
-    this._element = this._createDocumentElement("div");
+    this._element = this._createDocumentElement('div');
   }
 
   getProps(): P {
@@ -126,7 +130,7 @@ export default class Block<P = BlockProps> {
   }
 
   protected render(): string {
-    return "";
+    return '';
   }
 
   getContent(): HTMLElement {
@@ -149,7 +153,7 @@ export default class Block<P = BlockProps> {
     return new Proxy(props as unknown as object, {
       get(target: Record<string, unknown>, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
         target[prop] = value;
@@ -158,7 +162,7 @@ export default class Block<P = BlockProps> {
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     }) as unknown as P;
   }
@@ -168,32 +172,36 @@ export default class Block<P = BlockProps> {
   }
 
   _removeEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as any;
 
     if (!events || !this._element) {
       return;
     }
 
     Object.entries(events).forEach(([event, listener]) => {
-      if (this._element) this._element.removeEventListener(event, listener);
+      if (this._element) { // @ts-ignore
+        this._element.removeEventListener(event, listener);
+      }
     });
   }
 
   _addEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as any;
 
     if (!events) {
       return;
     }
 
     Object.entries(events).forEach(([event, listener]) => {
-      if (this._element) this._element.addEventListener(event, listener, true);
+      if (this._element) { // @ts-ignore
+        this._element.addEventListener(event, listener, true);
+      }
     });
   }
 
   _compile(): DocumentFragment {
     this.children = {};
-    const fragment = document.createElement("template");
+    const fragment = document.createElement('template');
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
       ...this.state,
@@ -216,10 +224,10 @@ export default class Block<P = BlockProps> {
   }
 
   show() {
-    this.getContent().style.display = "block";
+    this.getContent().style.display = 'block';
   }
 
   hide() {
-    this.getContent().style.display = "none";
+    this.getContent().style.display = 'none';
   }
 }
