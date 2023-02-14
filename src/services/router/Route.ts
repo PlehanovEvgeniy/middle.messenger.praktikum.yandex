@@ -23,7 +23,7 @@ export class Route {
     this._props = props;
   }
 
-  match(pathname) {
+  match(pathname: string) {
     return isEqual(pathname, this._pathname);
   }
 
@@ -38,7 +38,7 @@ export class Route {
   }
 
   navigate(pathname: string) {
-    if (this.match(pathname)) {
+    if (!this.match(pathname)) {
       this._pathname = pathname;
       this.render();
     }

@@ -4,7 +4,7 @@ export default class EventBus<
   EVENT extends string = string,
   M extends { [K in EVENT]: unknown[] } = Record<EVENT, unknown[]>
 > {
-  private listeners: { [key in EVENT]?: Listener<M[EVENT]>[] } = {};
+  public listeners: { [key in EVENT]?: Listener<M[EVENT]>[] } = {};
 
   on(event: EVENT, callback: Listener<M[EVENT]>) {
     if (!this.listeners[event]) {

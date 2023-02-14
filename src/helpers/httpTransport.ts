@@ -69,6 +69,8 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest();
       const currentUrl = `${this.baseUrl}${url}`;
       xhr.withCredentials = true;
+      xhr.timeout = 500000;
+      //xhr.setRequestHeader('access-control-allow-origin', "*")
       xhr.open(
         method,
         method === METHOD.GET && data
