@@ -57,9 +57,9 @@ export class Router {
   }
 
   go(pathname: string) {
-    // if (window.store.state.currentUser && pathname === "/") {
-    //   pathname = "/messenger";
-    // }
+    if (window.store.state.currentUser && pathname === "/") {
+      pathname = "/messenger";
+    }
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
