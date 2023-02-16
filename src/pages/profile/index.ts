@@ -1,1 +1,1 @@
-import { default as Profile } from "./profile";
+import { default as Profile } from './profile';

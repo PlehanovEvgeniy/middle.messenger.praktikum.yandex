@@ -1,11 +1,11 @@
-import { Block, BlockProps } from "../../modules";
+import { Block, BlockProps } from '../../modules';
 
 interface ChatMessagesProps extends BlockProps {
   messages: any[];
 }
 
 export class ChatMessages extends Block<ChatMessagesProps> {
-  static componentName = "ChatMessages";
+  static componentName = 'ChatMessages';
 
   constructor({ ...props }: ChatMessagesProps) {
     super({

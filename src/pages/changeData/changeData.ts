@@ -1,10 +1,10 @@
-import "../../assets/styles/profile.less";
-import { Block } from "../../modules";
-import { getAvatarFile, getFormValues } from "../../helpers";
-import { onSubmitValidation } from "../../helpers/validation";
-import { ApiUser } from "../../api";
+import '../../assets/styles/profile.less';
+import { Block } from '../../modules';
+import { getAvatarFile, getFormValues } from '../../helpers';
+import { onSubmitValidation } from '../../helpers/validation';
+import { ApiUser } from '../../api';
 
-import * as backArrowSvg from "../../assets/images/back-arrow.svg";
+import backArrowSvg from '../../assets/images/back-arrow.svg';
 
 export default class ChangeData extends Block {
   constructor() {
@@ -24,7 +24,6 @@ export default class ChangeData extends Block {
 
       try {
         if (avatar) {
-          console.log(avatar);
           const updateUserAvatar = await ApiUser.updateUserAvatar({
             avatar,
           });
@@ -45,7 +44,7 @@ export default class ChangeData extends Block {
 
         window.store.dispatch({ currentUser: JSON.parse(updateUser.response) });
 
-        window.router.go("/settings");
+        window.router.go('/settings');
       } catch (error) {
         console.log(error);
       }

@@ -1,4 +1,4 @@
-import Block from "../modules/block";
+import Block from '../modules/block';
 
 const validationPatterns = {
   login: /^(?!\d+$)[A-Za-z-_0-9]{3,20}$/,
@@ -21,7 +21,7 @@ export function loginValidation() {
   const value = arguments[0];
   const isValid = inputValidation(value, validationPatterns.login);
   if (!isValid) {
-    return "Некорректный логин";
+    return 'Некорректный логин';
   }
 }
 
@@ -29,17 +29,16 @@ export function phoneValidation() {
   const value = arguments[0];
   const isValid = inputValidation(value, validationPatterns.phone);
   if (!isValid) {
-    return "Некоректный номер";
-  } else {
-    return undefined;
+    return 'Некоректный номер';
   }
+  return undefined;
 }
 
 export function emailValidation() {
   const value = arguments[0];
   const isValid = inputValidation(value, validationPatterns.email);
   if (!isValid) {
-    return "Некоректный email";
+    return 'Некоректный email';
   }
 }
 
@@ -47,7 +46,7 @@ export function nameValidation() {
   const value = arguments[0];
   const isValid = inputValidation(value, validationPatterns.name);
   if (!isValid) {
-    return "Некоректное Имя";
+    return 'Некоректное Имя';
   }
 }
 
@@ -55,7 +54,7 @@ export function passwordValidation() {
   const value = arguments[0];
   const isValid = inputValidation(value, validationPatterns.password);
   if (!isValid) {
-    return "Некоректный пароль";
+    return 'Некоректный пароль';
   }
 }
 
@@ -63,7 +62,7 @@ export function messageValidation() {
   const value = arguments[0];
   const isValid = inputValidation(value, validationPatterns.message);
   if (!isValid) {
-    return "Сообщение не может быть пустым";
+    return 'Сообщение не может быть пустым';
   }
 }
 
@@ -84,17 +83,15 @@ export const formValidation: {
 
 export function onSubmitValidation(
   formData: Record<string, string | number>,
-  children: Record<string, Block>
+  children: Record<string, Block>,
 ): boolean {
   let errorCount = 0;
 
   for (const formDataKey in formData) {
-    const component = Object.entries(children).find(([_, component]) => {
-      return (
-        component.getProps()?.validation &&
-        component.getProps().validation === formDataKey
-      );
-    });
+    const component = Object.entries(children).find(([_, component]) => (
+      component.getProps()?.validation
+        && component.getProps().validation === formDataKey
+    ));
 
     if (component) {
       const [_, child] = component;

@@ -4,7 +4,7 @@ export default class EventBus<
   EVENT extends string = string,
   M extends { [K in EVENT]: unknown[] } = Record<EVENT, unknown[]>
 > {
-  private listeners: { [key in EVENT]?: Listener<M[EVENT]>[] } = {};
+  public listeners: { [key in EVENT]?: Listener<M[EVENT]>[] } = {};
 
   on(event: EVENT, callback: Listener<M[EVENT]>) {
     if (!this.listeners[event]) {
@@ -19,7 +19,7 @@ export default class EventBus<
     }
 
     this.listeners[event] = this.listeners[event]?.filter(
-      (listener) => listener !== callback
+      (listener) => listener !== callback,
     );
   }
 
@@ -28,7 +28,7 @@ export default class EventBus<
       return;
     }
 
-    this.listeners[event]?.forEach(function (listener) {
+    this.listeners[event]?.forEach((listener) => {
       listener(...args);
     });
   }

@@ -1,9 +1,9 @@
-import { ApiInstance } from "../../helpers/httpTransport";
-import { CreateChat, UpdateUsers } from "./apiChat.model";
+import { ApiInstance } from '../../helpers/httpTransport';
+import { CreateChat, UpdateUsers } from './apiChat.model';
 
 class ApiChatService {
   async getChats(): Promise<XMLHttpRequest> {
-    const data = await ApiInstance.get("chats");
+    const data = await ApiInstance.get('chats');
 
     return JSON.parse(data.response);
   }
@@ -21,25 +21,25 @@ class ApiChatService {
   }
 
   createChat(data: CreateChat): Promise<XMLHttpRequest> {
-    return ApiInstance.post("chats", {
+    return ApiInstance.post('chats', {
       data,
     });
   }
 
   addUsersToChat(data: UpdateUsers): Promise<XMLHttpRequest> {
-    return ApiInstance.put("chats/users", {
+    return ApiInstance.put('chats/users', {
       data,
     });
   }
 
   deleteChat(chatId: number): Promise<XMLHttpRequest> {
-    return ApiInstance.delete("chats", {
+    return ApiInstance.delete('chats', {
       data: { chatId },
     });
   }
 
   deleteUsersFromChat(data: UpdateUsers): Promise<XMLHttpRequest> {
-    return ApiInstance.delete("chats/users", {
+    return ApiInstance.delete('chats/users', {
       data,
     });
   }

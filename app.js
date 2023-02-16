@@ -10,4 +10,4 @@ app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "./dist/index.html"));
 });
 
-app.listen(PORT, () => console.log(`App listening to port ${PORT}`));
+app.listen(process.env.PORT || PORT, "0.0.0.0", () => console.log(`App listening to port ${PORT}`));

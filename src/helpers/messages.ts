@@ -1,10 +1,12 @@
-import WSTransport, { WSTransportEvents } from "./wsTransport";
-import { apiChat } from "../api";
-import { dateFormatting } from "./index";
+import WSTransport, { WSTransportEvents } from './wsTransport';
+import { apiChat } from '../api';
+import { dateFormatting } from './index';
 
 class Messages {
   private socket!: WSTransport;
+
   private sockets: { [id: string]: WSTransport } = {};
+
   async connect(chatId: number) {
     this.disconnect();
 
@@ -12,18 +14,16 @@ class Messages {
     const token = await apiChat.chatToken(chatId);
 
     this.socket = new WSTransport(
-      `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`
+      `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`,
     );
 
     await this.socket.connect();
 
     this.sockets[chatId] = this.socket;
-    this.socket.on(WSTransportEvents.Message, (message) =>
-      this.storeMessages(message)
-    );
+    this.socket.on(WSTransportEvents.Message, (message) => this.storeMessages(message));
     this.socket.on(WSTransportEvents.Close, () => this.disconnect());
 
-    this.socket.send({ type: "get old", content: 0 });
+    this.socket.send({ type: 'get old', content: 0 });
   }
 
   disconnect() {
@@ -41,7 +41,7 @@ class Messages {
   public sendMessage(content: string): void {
     this.socket.send({
       content,
-      type: "message",
+      type: 'message',
     });
   }
 
@@ -50,7 +50,7 @@ class Messages {
 
     if (Array.isArray(messages)) {
       newMessages = messages
-        .filter((message) => message.type === "message")
+        .filter((message) => message.type === 'message')
         .map((message) => ({
           ...message,
           my: window.store.state.currentUser!.id === message.user_id,

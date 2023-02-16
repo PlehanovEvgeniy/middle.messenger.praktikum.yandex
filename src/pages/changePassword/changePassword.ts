@@ -1,10 +1,10 @@
-import "../../assets/styles/profile.less";
-import { Block } from "../../modules";
-import { getFormValues } from "../../helpers";
-import { onSubmitValidation } from "../../helpers/validation";
-import { ApiUser } from "../../api";
+import '../../assets/styles/profile.less';
+import { Block } from '../../modules';
+import { getFormValues } from '../../helpers';
+import { onSubmitValidation } from '../../helpers/validation';
+import { ApiUser } from '../../api';
 
-import * as backArrowSvg from "../../assets/images/back-arrow.svg";
+import backArrowSvg from '../../assets/images/back-arrow.svg';
 
 export default class ChangePassword extends Block {
   constructor() {

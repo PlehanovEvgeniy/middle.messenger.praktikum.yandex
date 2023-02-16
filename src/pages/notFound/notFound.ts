@@ -1,5 +1,5 @@
-import "../../assets/styles/error.less";
-import { Block } from "../../modules";
+import '../../assets/styles/error.less';
+import { Block } from '../../modules';
 
 export default class NotFound extends Block {
   protected render(): string {

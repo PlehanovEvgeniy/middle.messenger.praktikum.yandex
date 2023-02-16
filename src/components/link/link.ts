@@ -1,4 +1,4 @@
-import { Block, BlockProps } from "../../modules";
+import { Block, BlockProps } from '../../modules';
 
 interface LinkProps extends BlockProps {
   text: string;
@@ -8,12 +8,12 @@ interface LinkProps extends BlockProps {
 }
 
 export class Link extends Block<LinkProps> {
-  static componentName = "Link";
+  static componentName = 'Link';
 
   constructor({ ...props }: LinkProps) {
     super({
       ...props,
-      className: props.className ?? "link",
+      className: props.className ?? 'link',
       events: {
         click: (event: MouseEvent) => {
           event.preventDefault();

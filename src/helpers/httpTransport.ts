@@ -1,8 +1,8 @@
 export enum METHOD {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
 type Options = {
@@ -11,69 +11,72 @@ type Options = {
   headers?: Record<string, string>;
 };
 
-type OptionsWithoutMethod = Omit<Options, "method">;
+type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export class HTTPTransport {
-  constructor(private baseUrl: string) {}
+  private baseUrl: string;
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
 
   get(
     url: string,
-    options: OptionsWithoutMethod = {}
+    options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.GET });
+    return this.request(url, {...options, method: METHOD.GET});
   }
 
   post(
     url: string,
-    options: OptionsWithoutMethod = {}
+    options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.POST });
+    return this.request(url, {...options, method: METHOD.POST});
   }
 
   put(
     url: string,
-    options: OptionsWithoutMethod = {}
+    options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PUT });
+    return this.request(url, {...options, method: METHOD.PUT});
   }
 
   delete(
     url: string,
-    options: OptionsWithoutMethod = {}
+    options: OptionsWithoutMethod = {},
   ): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.DELETE });
+    return this.request(url, {...options, method: METHOD.DELETE});
   }
 
   private queryStringify(data: Record<string, any>) {
     const keys = Object.keys(data);
-    return keys.reduce((result, key, index) => {
-      return `${result}${key}=${data[key]}${
-        index < keys.length - 1 ? "&" : ""
-      }`;
-    }, "?");
+    return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${
+      index < keys.length - 1 ? '&' : ''
+    }`, '?');
   }
 
   request(
     url: string,
-    options: Options = { method: METHOD.GET }
+    options: Options = {method: METHOD.GET},
   ): Promise<XMLHttpRequest> {
-    const { headers = {}, method, data } = options;
+    const {headers = {}, method, data} = options;
     if (
-      !headers["content-type"] &&
-      !(data && data instanceof window.FormData)
+      !headers['content-type']
+      && !(data && data instanceof window.FormData)
     ) {
-      headers["content-type"] = "application/json";
+      headers['content-type'] = 'application/json';
     }
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const currentUrl = `${this.baseUrl}${url}`;
       xhr.withCredentials = true;
+      xhr.timeout = 500000;
       xhr.open(
         method,
         method === METHOD.GET && data
           ? `${currentUrl}${this.queryStringify(data)}`
-          : currentUrl
+          : currentUrl,
       );
 
       Object.keys(headers).forEach((key) => {
@@ -100,5 +103,5 @@ export class HTTPTransport {
 }
 
 export const ApiInstance = new HTTPTransport(
-  "https://ya-praktikum.tech/api/v2/"
+  'https://ya-praktikum.tech/api/v2/',
 );

@@ -1,5 +1,5 @@
-import { Chat } from "../../api/chat";
-import { Block, BlockProps } from "../../modules";
+import { Chat } from '../../api/chat';
+import { Block, BlockProps } from '../../modules';
 
 interface ChatListProps extends BlockProps {
   chats: Chat[];
@@ -7,7 +7,7 @@ interface ChatListProps extends BlockProps {
 }
 
 export class ChatList extends Block<ChatListProps> {
-  static componentName = "ChatList";
+  static componentName = 'ChatList';
 
   constructor({ ...props }: ChatListProps) {
     super({

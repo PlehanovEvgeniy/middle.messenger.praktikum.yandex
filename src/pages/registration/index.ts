@@ -1,1 +1,1 @@
-import { default as Registration } from "./registration";
+import { default as Registration } from './registration';

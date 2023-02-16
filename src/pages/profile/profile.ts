@@ -1,7 +1,8 @@
-import "../../assets/styles/profile.less";
-import { Block } from "../../modules";
-import { apiAuth } from "../../api";
-import * as backArrowSvg from "../../assets/images/back-arrow.svg";
+import '../../assets/styles/profile.less';
+import { Block } from '../../modules';
+import { apiAuth } from '../../api';
+
+import backArrowSvg from '../../assets/images/back-arrow.svg';
 
 export default class Profile extends Block {
   constructor() {
@@ -12,7 +13,7 @@ export default class Profile extends Block {
       window.store.dispatch({
         currentUser: null,
       });
-      window.router.go("/");
+      window.router.go('/');
     };
 
     super({

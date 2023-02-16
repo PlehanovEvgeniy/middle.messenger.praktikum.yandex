@@ -1,1 +1,1 @@
-import { default as ChangeData } from "./changeData";
+import { default as ChangeData } from './changeData';

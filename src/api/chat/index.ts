@@ -1,2 +1,2 @@
-export * from "./apiChat.model";
-export * from "./apiChat.service";
+export * from './apiChat.model';
+export * from './apiChat.service';

@@ -1,1 +1,1 @@
-import { default as ServerError } from "./serverError";
+import { default as ServerError } from './serverError';

@@ -1,4 +1,4 @@
-@import "styleVariables";
+@import url("styleVariables");
 
 .chat {
   display: flex;
@@ -16,18 +16,16 @@
     border: none;
     color: @color-white;
     background-color: @color-blue;
-
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
-
     cursor: pointer;
   }
 
   &__container {
     display: flex;
     flex-direction: row;
-    padding: 12px 10px 0 10px;
+    padding: 12px 10px 0;
     margin-top: 14px;
     justify-content: space-between;
     border-top: 1px solid @color-very-light-gray;
@@ -124,7 +122,6 @@
       width: 100%;
       text-align: right;
       margin: 21px 0 23px;
-
       font-size: 12px;
       line-height: 12px;
       text-decoration: none;
@@ -198,7 +195,7 @@
         top: calc(100% + 8px);
         border-radius: 6px;
         display: none;
-        box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+        box-shadow: 0 0 6px rgb(0 0 0 / 0.14);
 
         &--active {
           display: block;
@@ -287,7 +284,7 @@
       display: flex;
       min-width: 100px;
       max-width: 402px;
-      padding: 11px 11px 25px 11px;
+      padding: 11px 11px 25px;
       background-color: @color-message-container;
       font-weight: 500;
       font-size: 12px;
@@ -327,12 +324,11 @@
   &__footer {
     display: flex;
     flex: 1;
-    margin: 0 20px;
     width: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 0px;
+    margin: 0;
     padding: 11px 0;
     gap: 10px;
     border-top: 1px solid @color-very-light-gray;
